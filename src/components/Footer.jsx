@@ -92,7 +92,6 @@ export default function Footer({ onOpenPrivacy, onOpenTerms }) {
           color: 'var(--text-dim)'
         }}>
           <span>© 2026 InternGo. All rights reserved.</span>
-          <span>Built for free deployment &amp; ad monetization.</span>
         </div>
       </div>
     </footer>
