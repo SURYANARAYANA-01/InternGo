@@ -5,7 +5,6 @@ import QuestionPlayer from './components/QuestionPlayer';
 import BackupModal from './components/BackupModal';
 import Footer from './components/Footer';
 import PrivacyModal from './components/PrivacyModal';
-import AdBanner from './components/AdBanner';
 
 import { getGameState, updateLevelProgress, unlockNextTwoLevels } from './utils/storage';
 import { showRewardedAd } from './utils/adHelper';
@@ -282,9 +281,6 @@ export default function App() {
                       );
                     })}
                   </div>
-
-                  {/* Policy-Compliant Display Ad Placement */}
-                  <AdBanner style={{ marginTop: '28px' }} />
 
                 </div>
               </div>
