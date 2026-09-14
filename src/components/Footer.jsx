@@ -1,7 +1,7 @@
 import React from 'react';
-import { Sparkles, Shield, FileText } from 'lucide-react';
+import { Shield, FileText, Info, Mail } from 'lucide-react';
 
-export default function Footer({ onOpenPrivacy, onOpenTerms }) {
+export default function Footer({ onOpenPrivacy, onOpenTerms, onOpenAbout, onOpenContact }) {
   return (
     <footer style={{
       background: 'var(--navbar-bg)',
@@ -27,13 +27,16 @@ export default function Footer({ onOpenPrivacy, onOpenTerms }) {
         }}>
           {/* Logo & Tagline */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <div style={{
-              width: '34px', height: '34px', borderRadius: '10px',
-              background: 'linear-gradient(135deg, #6366f1, #a855f7)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center'
-            }}>
-              <Sparkles size={18} color="#fff" />
-            </div>
+            <img
+              src="/logo.png"
+              alt="InternGo Logo"
+              style={{
+                width: '34px',
+                height: '34px',
+                borderRadius: '10px',
+                objectFit: 'contain'
+              }}
+            />
             <div>
               <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-main)' }}>
                 InternGo
@@ -45,7 +48,37 @@ export default function Footer({ onOpenPrivacy, onOpenTerms }) {
           </div>
 
           {/* Links */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', fontSize: '0.85rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '18px', fontSize: '0.85rem', flexWrap: 'wrap' }}>
+            <button
+              onClick={onOpenAbout}
+              style={{
+                background: 'none', border: 'none',
+                color: 'var(--text-muted)', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', gap: '6px',
+                fontFamily: 'inherit', fontSize: 'inherit',
+                transition: 'color 0.2s'
+              }}
+              onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-primary)'}
+              onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+            >
+              <Info size={14} />
+              <span>About Us</span>
+            </button>
+            <button
+              onClick={onOpenContact}
+              style={{
+                background: 'none', border: 'none',
+                color: 'var(--text-muted)', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', gap: '6px',
+                fontFamily: 'inherit', fontSize: 'inherit',
+                transition: 'color 0.2s'
+              }}
+              onMouseEnter={e => e.currentTarget.style.color = 'var(--accent-primary)'}
+              onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}
+            >
+              <Mail size={14} />
+              <span>Contact</span>
+            </button>
             <button
               onClick={onOpenPrivacy}
               style={{

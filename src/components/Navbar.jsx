@@ -1,12 +1,12 @@
 import React from 'react';
-import { Sparkles, Flame, Star, Key } from 'lucide-react';
+import { Flame, Star, Key } from 'lucide-react';
 
 export default function Navbar({
   gameState,
   onOpenBackupModal
 }) {
   return (
-    <header style={{
+    <header className="nav-header-padding" style={{
       position: 'sticky',
       top: 0,
       zIndex: 50,
@@ -28,18 +28,17 @@ export default function Navbar({
 
         {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{
-            width: '42px',
-            height: '42px',
-            borderRadius: '12px',
-            background: 'linear-gradient(135deg, #6366f1, #a855f7)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 4px 16px rgba(99, 102, 241, 0.4)'
-          }}>
-            <Sparkles size={22} color="#fff" />
-          </div>
+          <img
+            src="/logo.png"
+            alt="InternGo Logo"
+            style={{
+              width: '42px',
+              height: '42px',
+              borderRadius: '12px',
+              objectFit: 'contain',
+              boxShadow: '0 4px 16px rgba(99, 102, 241, 0.3)'
+            }}
+          />
           <div>
             <h1 style={{
               fontSize: '1.35rem',
@@ -57,10 +56,10 @@ export default function Navbar({
         </div>
 
         {/* Stats & Actions (Right aligned) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+        <div className="nav-stats-wrap" style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
 
           {/* Stars badge */}
-          <div style={{
+          <div className="nav-stats-badge" style={{
             display: 'flex', alignItems: 'center', gap: '6px',
             background: 'rgba(245, 158, 11, 0.12)', border: '1px solid rgba(245, 158, 11, 0.25)',
             padding: '6px 14px', borderRadius: '20px', color: '#f59e0b', fontSize: '0.88rem', fontWeight: 700
@@ -70,7 +69,7 @@ export default function Navbar({
           </div>
 
           {/* Streak badge */}
-          <div style={{
+          <div className="nav-stats-badge" style={{
             display: 'flex', alignItems: 'center', gap: '6px',
             background: 'rgba(239, 68, 68, 0.12)', border: '1px solid rgba(239, 68, 68, 0.25)',
             padding: '6px 14px', borderRadius: '20px', color: '#f87171', fontSize: '0.88rem', fontWeight: 700
@@ -82,7 +81,7 @@ export default function Navbar({
           {/* Backup Key Button */}
           <button
             onClick={onOpenBackupModal}
-            className="btn-secondary"
+            className="btn-secondary nav-backup-btn"
             title="Backup or Restore Progress Code"
             style={{ padding: '8px 14px', fontSize: '0.82rem' }}
           >

@@ -5,6 +5,7 @@ import QuestionPlayer from './components/QuestionPlayer';
 import BackupModal from './components/BackupModal';
 import Footer from './components/Footer';
 import PrivacyModal from './components/PrivacyModal';
+import AdBanner from './components/AdBanner';
 
 import { getGameState, updateLevelProgress, unlockNextTwoLevels } from './utils/storage';
 import { showRewardedAd } from './utils/adHelper';
@@ -89,28 +90,29 @@ export default function App() {
             className="animate-fade-in"
           >
             {/* Top Bar */}
-            <div style={{
+            <div className="category-topbar" style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '20px',
+              gap: '16px',
               padding: '16px 32px',
               borderBottom: '1px solid var(--border-glass)',
               background: 'var(--bg-primary)',
-              zIndex: 10
+              zIndex: 10,
+              flexWrap: 'wrap'
             }}>
               <button
                 onClick={() => setActiveCategoryPage(null)}
-                className="btn-secondary"
-                style={{ padding: '8px 18px', fontSize: '0.88rem', whiteSpace: 'nowrap', minWidth: '170px' }}
+                className="btn-secondary back-btn"
+                style={{ padding: '8px 18px', fontSize: '0.88rem', whiteSpace: 'nowrap' }}
               >
-                ← Back to Categories
+                ← Back
               </button>
-              <h2 style={{
-                fontSize: '1.8rem',
+              <h2 className="category-title" style={{
+                fontSize: '1.6rem',
                 fontWeight: 800,
                 color: 'var(--text-main)',
-                whiteSpace: 'nowrap',
-                margin: 0
+                margin: 0,
+                flexShrink: 1
               }}>
                 {categoryTitles[activeCategoryPage] || activeCategoryPage}
               </h2>
@@ -137,15 +139,16 @@ export default function App() {
                 flexDirection: 'column'
               }}
             >
-              <div style={{ padding: '24px 32px 40px 32px' }}>
-                <div style={{ paddingLeft: '190px', paddingRight: '190px' }}>
+              <div style={{ padding: '20px 0 40px 0' }}>
+                <div className="category-container">
 
                   {/* Watch Ad row */}
-                  <div style={{
+                  <div className="watch-ad-row" style={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    marginBottom: adError ? '8px' : '20px'
+                    marginBottom: adError ? '8px' : '20px',
+                    gap: '12px'
                   }}>
                     <span style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-muted)' }}>
                       Watch ad to unlock the next two levels
@@ -188,7 +191,7 @@ export default function App() {
                         <div
                           key={index}
                           onClick={() => isUnlocked && setActiveLevel(levelNum)}
-                          className={isUnlocked ? 'glass-card glass-card-hover' : 'glass-card'}
+                          className={isUnlocked ? 'glass-card glass-card-hover level-card-inner' : 'glass-card level-card-inner'}
                           style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -205,7 +208,8 @@ export default function App() {
                             opacity: isUnlocked ? 1 : 0.5,
                             transition: 'all 0.25s ease',
                             position: 'relative',
-                            overflow: 'hidden'
+                            overflow: 'hidden',
+                            gap: '12px'
                           }}
                         >
                           {/* DONE ribbon */}
@@ -242,7 +246,7 @@ export default function App() {
 
                           {/* Right side: stars OR lock icon */}
                           {isUnlocked ? (
-                            <div style={{
+                            <div className="level-card-stars" style={{
                               display: 'flex',
                               alignItems: 'center',
                               gap: '6px',
@@ -279,6 +283,9 @@ export default function App() {
                     })}
                   </div>
 
+                  {/* Policy-Compliant Display Ad Placement */}
+                  <AdBanner style={{ marginTop: '28px' }} />
+
                 </div>
               </div>
 
@@ -287,6 +294,8 @@ export default function App() {
                 <Footer
                   onOpenPrivacy={() => setPolicyModalType('privacy')}
                   onOpenTerms={() => setPolicyModalType('terms')}
+                  onOpenAbout={() => setPolicyModalType('about')}
+                  onOpenContact={() => setPolicyModalType('contact')}
                 />
               </div>
             </div>
@@ -294,15 +303,33 @@ export default function App() {
           </div>
         ) : (
           /* HOME PAGE */
-          <>
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{
+            flex: 1,
+            overflowY: 'auto',
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+            <div style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '40px 16px 50px 16px'
+            }}>
               <LevelGrid onSelectCategory={handleSelectCategory} />
             </div>
-            <Footer
-              onOpenPrivacy={() => setPolicyModalType('privacy')}
-              onOpenTerms={() => setPolicyModalType('terms')}
-            />
-          </>
+
+            {/* Footer at bottom of scrollable content */}
+            <div style={{ marginTop: 'auto' }}>
+              <Footer
+                onOpenPrivacy={() => setPolicyModalType('privacy')}
+                onOpenTerms={() => setPolicyModalType('terms')}
+                onOpenAbout={() => setPolicyModalType('about')}
+                onOpenContact={() => setPolicyModalType('contact')}
+              />
+            </div>
+          </div>
         )}
       </main>
 

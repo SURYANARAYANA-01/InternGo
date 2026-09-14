@@ -4,6 +4,7 @@ import { REASONING_LEVELS } from '../data/reasoningLevels';
 import { PROBLEM_SOLVING_LEVELS } from '../data/problemSolvingLevels';
 import { Star, CheckCircle, XCircle, RotateCcw, ArrowLeft, ArrowRight, Award, BookOpen, X } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import AdBanner from './AdBanner';
 
 export default function QuestionPlayer({ category, levelNumber, onExit, onComplete, onWatchAdForExplanation }) {
   const categoryMap = {
@@ -189,7 +190,7 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
         padding: '24px 20px',
         overflowY: 'auto'
       }} className="animate-fade-in">
-        <div style={{
+        <div className="result-card-padding" style={{
           width: '100%',
           maxWidth: '500px',
           background: 'var(--bg-glass)',
@@ -290,7 +291,7 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
           </div>
 
           {/* Action Buttons Row: Retry Level & Back to Levels */}
-          <div style={{ display: 'flex', gap: '14px', width: '100%', marginTop: '6px' }}>
+          <div className="result-actions-row" style={{ display: 'flex', gap: '14px', width: '100%', marginTop: '6px' }}>
             <button
               onClick={handleRestart}
               className="btn-secondary"
@@ -451,6 +452,9 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
             </div>
           )}
         </div>
+
+        {/* Policy-Compliant Display Ad on Results Screen */}
+        <AdBanner style={{ marginTop: '20px', maxWidth: '500px' }} />
       </div>
     );
   }
@@ -471,7 +475,7 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
     }} className="animate-fade-in">
 
       {/* Top Bar */}
-      <div style={{
+      <div className="question-topbar" style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -482,15 +486,15 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
       }}>
         <button
           onClick={onExit}
-          className="btn-secondary"
+          className="btn-secondary back-btn"
           style={{ padding: '8px 18px', fontSize: '0.88rem', display: 'flex', alignItems: 'center', gap: '8px' }}
         >
           <ArrowLeft size={16} />
-          <span>Back to Levels</span>
+          <span>Back</span>
         </button>
 
         {/* Level Title & Question Index */}
-        <div style={{ textAlign: 'center' }}>
+        <div className="question-topbar-title" style={{ textAlign: 'center' }}>
           <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-main)' }}>
             Level {levelNumber}: {levelData.topic}
           </div>
@@ -500,7 +504,7 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
         </div>
 
         {/* Difficulty Badge */}
-        <div style={{
+        <div className="question-diff-badge" style={{
           padding: '6px 14px',
           borderRadius: '16px',
           background: diffStyle.bg,
@@ -525,7 +529,7 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
       </div>
 
       {/* Question Content Area */}
-      <div style={{
+      <div className="question-content-padding" style={{
         flex: 1,
         overflowY: 'auto',
         display: 'flex',
@@ -536,7 +540,7 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
         <div style={{ width: '100%', maxWidth: '680px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
 
           {/* Question Text Box */}
-          <div style={{
+          <div className="question-box-padding" style={{
             padding: '28px 32px',
             borderRadius: '20px',
             background: 'var(--bg-glass)',
@@ -546,7 +550,7 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
             <span style={{ fontSize: '0.82rem', color: 'var(--accent-primary)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Question {currentIndex + 1}
             </span>
-            <h3 style={{
+            <h3 className="question-title-text" style={{
               fontSize: '1.35rem',
               fontWeight: 700,
               color: 'var(--text-main)',
@@ -567,6 +571,7 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
                 <button
                   key={optIndex}
                   onClick={() => handleSelectOption(optIndex)}
+                  className="option-btn"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -620,7 +625,7 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
           </div>
 
           {/* Navigation Bar (Next / Submit button) */}
-          <div style={{
+          <div className="question-nav-container" style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-end',

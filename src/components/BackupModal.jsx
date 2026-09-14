@@ -56,7 +56,7 @@ export default function BackupModal({ onClose, onStateRestored }) {
 
   return (
     <div className="modal-overlay">
-      <div className="glass-card animate-fade-in" style={{
+      <div className="glass-card animate-fade-in modal-card" style={{
         maxWidth: '520px',
         width: '100%',
         padding: '32px',

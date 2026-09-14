@@ -45,6 +45,47 @@ export default function LevelGrid({ onSelectCategory }) {
       padding: '0 20px'
     }} className="animate-fade-in">
 
+      {/* Hero / Value Proposition Section */}
+      <div style={{ textAlign: 'center', maxWidth: '620px', marginBottom: '32px' }}>
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          background: 'rgba(99, 102, 241, 0.12)',
+          border: '1px solid rgba(99, 102, 241, 0.25)',
+          padding: '6px 16px',
+          borderRadius: '20px',
+          fontSize: '0.82rem',
+          fontWeight: 700,
+          color: 'var(--accent-primary)',
+          marginBottom: '14px'
+        }}>
+          <span>✦ 90 Skill Levels · 900 Curated Placement Questions</span>
+        </div>
+
+        <h2 style={{
+          fontSize: '2.1rem',
+          fontWeight: 800,
+          background: 'linear-gradient(135deg, var(--text-main) 65%, var(--accent-primary))',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          lineHeight: 1.25,
+          marginBottom: '10px'
+        }}>
+          Master Campus Placements &amp; Aptitude Tests
+        </h2>
+
+        <p style={{
+          fontSize: '0.96rem',
+          color: 'var(--text-muted)',
+          lineHeight: 1.6,
+          margin: '0 auto',
+          maxWidth: '520px'
+        }}>
+          Free gamified training for Quantitative Aptitude, Logical Reasoning, and Problem Solving. Level up with granular topics, earn stars, and learn step-by-step shortcuts.
+        </p>
+      </div>
+
       {/* 3 CENTERED BUTTONS STACKED ONE UNDER ANOTHER */}
       <div style={{
         display: 'flex',

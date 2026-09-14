@@ -1,21 +1,60 @@
-﻿/**
- * Ad Helper — Rewarded Ad Integration
+/**
+ * Ad Helper — Google AdSense Rewarded Ad & Interstitial Integration
  *
- * Replace the body of showRewardedAd() with your real Ad SDK code.
- * The function must call onSuccess() when the user finishes watching,
- * or onFail(reason) if the Ad fails / is dismissed early.
+ * Implements the official Google Ad Placement API (H5 Games & Web Apps)
+ * via window.adBreak({ type: 'reward', ... })
  */
+
 export function showRewardedAd(onSuccess, onFail) {
-  // ── PLACEHOLDER ──────────────────────────────────────────────────
-  // Remove the line below and add your real Ad SDK call here.
-  // Example structure (replace with your SDK):
-  //
-  //   YourAdSDK.showRewardedAd({
-  //     onRewarded: () => onSuccess(),
-  //     onDismissed: () => onFail('dismissed'),
-  //     onError: (err) => onFail(err),
-  //   });
-  //
-  onSuccess(); // <- DELETE THIS LINE when integrating real Ad SDK
-  // ─────────────────────────────────────────────────────────────────
+  // If window.adBreak is available (Google Ad Placement API loaded)
+  if (typeof window !== 'undefined' && typeof window.adBreak === 'function') {
+    let adShown = false;
+    let rewardGranted = false;
+
+    try {
+      window.adBreak({
+        type: 'reward',
+        name: 'unlock_content',
+        beforeReward: (showAdFn) => {
+          adShown = true;
+          showAdFn();
+        },
+        beforeAd: () => {
+          // Game or test paused
+        },
+        afterAd: () => {
+          // Resume normal state
+        },
+        adDismissed: () => {
+          if (!rewardGranted && onFail) {
+            onFail('Ad was closed before completion.');
+          }
+        },
+        adViewed: () => {
+          rewardGranted = true;
+          if (onSuccess) onSuccess();
+        },
+        adBreakDone: (placementInfo) => {
+          // If no ad was served (e.g. adblock, fill rate limit, frequency cap)
+          if (!adShown) {
+            if (placementInfo && placementInfo.breakStatus === 'frequencyCapped') {
+              if (onSuccess) onSuccess();
+            } else if (onFail) {
+              onFail('Ad not currently available. Please try again in a few moments.');
+            } else if (onSuccess) {
+              onSuccess();
+            }
+          }
+        }
+      });
+      return;
+    } catch (err) {
+      console.warn('AdSense adBreak execution error:', err);
+    }
+  }
+
+  // Graceful fallback for local development or when AdSense is unavailable
+  if (onSuccess) {
+    onSuccess();
+  }
 }
