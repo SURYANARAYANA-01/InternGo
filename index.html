@@ -16,7 +16,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Google AdSense & Ad Placement API (H5 Games / Rewarded Ads) -->
+
+    <!-- Google Ad Placement API for H5 rewarded ads -->
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5075059773558528"
@@ -26,7 +27,8 @@
     </script>
     <script>
       window.adsbygoogle = window.adsbygoogle || [];
-      window.adBreak = window.adConfig = function(o) { (window.adsbygoogle = window.adsbygoogle || []).push(o); };
+      var adBreak = adConfig = function(o) { window.adsbygoogle.push(o); };
+      adConfig({ preloadAdBreaks: 'on' });
     </script>
   </head>
   <body>
