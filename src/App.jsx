@@ -116,16 +116,6 @@ export default function App() {
                 {categoryTitles[activeCategoryPage] || activeCategoryPage}
               </h2>
               <div style={{ flex: 1 }} />
-              {/* Watch Ad button — only visible when scrolled */}
-              {isScrolled && (
-                <button
-                  onClick={handleWatchAd}
-                  className="btn-primary"
-                  style={{ padding: '8px 20px', fontSize: '0.88rem', background: 'linear-gradient(135deg, #f59e0b, #d97706)', border: 'none', whiteSpace: 'nowrap' }}
-                >
-                  🎬 Watch Ad
-                </button>
-              )}
             </div>
 
             {/* Scrollable Content */}
@@ -141,68 +131,30 @@ export default function App() {
               <div style={{ padding: '20px 0 40px 0' }}>
                 <div className="category-container">
 
-                  {/* Watch Ad row */}
-                  <div className="watch-ad-row" style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginBottom: adError ? '8px' : '20px',
-                    gap: '12px'
-                  }}>
-                    <span style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-muted)' }}>
-                      Watch ad to unlock the next two levels
-                    </span>
-                    <button
-                      onClick={handleWatchAd}
-                      className="btn-primary"
-                      style={{ padding: '8px 20px', fontSize: '0.88rem', background: 'linear-gradient(135deg, #f59e0b, #d97706)', border: 'none', whiteSpace: 'nowrap' }}
-                    >
-                      🎬 Watch Ad
-                    </button>
-                  </div>
-
-                  {/* Ad error message */}
-                  {adError && (
-                    <div style={{
-                      marginBottom: '16px',
-                      padding: '10px 16px',
-                      borderRadius: '12px',
-                      background: 'rgba(239,68,68,0.12)',
-                      border: '1px solid rgba(239,68,68,0.3)',
-                      color: '#ef4444',
-                      fontSize: '0.85rem',
-                      fontWeight: 600
-                    }}>
-                      {adError}
-                    </div>
-                  )}
-
                   {/* Level boxes */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     {(CATEGORY_LEVELS[activeCategoryPage] || []).map((topic, index) => {
                       const levelNum = index + 1;
                       const levelId = `level-${activeCategoryPage}-${levelNum}`;
                       const earnedStars = gameState?.userProgress?.[levelId]?.stars || 0;
-                      const unlockedLevels = gameState?.unlockedLevels?.[activeCategoryPage] || [1];
-                      const isUnlocked = unlockedLevels.includes(levelNum);
+                      const unlockedArr = gameState?.unlockedLevels?.[activeCategoryPage] || [1];
+                      const isUnlocked = unlockedArr.includes(levelNum);
 
                       return (
                         <div
                           key={index}
                           onClick={() => isUnlocked && setActiveLevel(levelNum)}
-                          className={isUnlocked ? 'glass-card glass-card-hover level-card-inner' : 'glass-card level-card-inner'}
+                          className="glass-card level-card-inner"
                           style={{
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
                             padding: '18px 24px',
                             borderRadius: '16px',
-                            background: isUnlocked ? 'var(--bg-glass)' : 'var(--bg-surface)',
-                            border: !isUnlocked
-                              ? '1px solid var(--border-glass)'
-                              : earnedStars >= 1
-                                ? '1.5px solid #10b981'
-                                : '1px solid var(--border-glass)',
+                            background: 'var(--bg-glass)',
+                            border: earnedStars >= 1
+                              ? '1.5px solid #10b981'
+                              : '1px solid var(--border-glass)',
                             cursor: isUnlocked ? 'pointer' : 'not-allowed',
                             opacity: isUnlocked ? 1 : 0.5,
                             transition: 'all 0.25s ease',
@@ -212,7 +164,7 @@ export default function App() {
                           }}
                         >
                           {/* DONE ribbon */}
-                          {isUnlocked && earnedStars >= 1 && (
+                          {earnedStars >= 1 && (
                             <div style={{
                               position: 'absolute',
                               top: '16px',
@@ -235,26 +187,26 @@ export default function App() {
                           )}
 
                           <div>
-                            <div style={{ fontSize: '1.02rem', fontWeight: 700, color: isUnlocked ? 'var(--text-main)' : 'var(--text-muted)', marginBottom: '4px' }}>
+                            <div style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
                               Level {levelNum}: {topic}
                             </div>
                             <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 500 }}>
-                              10 Questions.
+                              {isUnlocked ? '10 Questions.' : 'Complete the previous level to unlock.'}
                             </div>
                           </div>
 
-                          {/* Right side: stars OR lock icon */}
-                          {isUnlocked ? (
-                            <div className="level-card-stars" style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: '6px',
-                              flexShrink: 0,
-                              marginLeft: '16px',
-                              marginRight: earnedStars >= 1 ? '36px' : '0px',
-                              transition: 'margin 0.2s ease'
-                            }}>
-                              {[1, 2, 3].map((starNum) => {
+                          {/* Right side: stars or lock icon */}
+                          <div className="level-card-stars" style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            flexShrink: 0,
+                            marginLeft: '16px',
+                            marginRight: earnedStars >= 1 ? '36px' : '0px',
+                            transition: 'margin 0.2s ease'
+                          }}>
+                            {isUnlocked ? (
+                              [1, 2, 3].map((starNum) => {
                                 const isEarned = starNum <= earnedStars;
                                 return (
                                   <Star
@@ -270,13 +222,11 @@ export default function App() {
                                     }}
                                   />
                                 );
-                              })}
-                            </div>
-                          ) : (
-                            <div style={{ flexShrink: 0, marginLeft: '16px' }}>
-                              <Lock size={22} color="var(--text-dim)" />
-                            </div>
-                          )}
+                              })
+                            ) : (
+                              <Lock size={22} color="var(--text-dim)" strokeWidth={1.8} style={{ opacity: 0.7 }} />
+                            )}
+                          </div>
                         </div>
                       );
                     })}

@@ -72,55 +72,36 @@ export default function PrivacyModal({ type, onClose }) {
                 <strong>100% locally on your device using browser LocalStorage</strong>. We do not require registration, do not collect personal identities, and do not transmit your quiz performance data to external servers.
               </p>
 
-              <h4 style={{ color: 'var(--text-main)', fontWeight: 700 }}>2. Google AdSense &amp; Third-Party Advertising</h4>
+              <h4 style={{ color: 'var(--text-main)', fontWeight: 700 }}>2. Third-Party Services &amp; Cookies</h4>
               <p>
-                We partner with <strong>Google AdSense</strong> and authorized ad networks to serve advertisements (including display banners and rewarded video ads):
+                We may partner with third-party service providers and analytics partners to analyze learning traffic and deliver platform services. These services may use cookies in accordance with standard web protocols:
               </p>
               <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <li>
-                  Third-party vendors, including <strong>Google</strong>, use cookies to serve ads based on a user's prior visits to this website or other websites on the internet.
-                </li>
-                <li>
-                  Google's use of advertising cookies enables it and its partners to serve personalized ads to users based on their visits to our site and/or other sites across the web.
+                  Third-party partners may use cookies to understand visitor interactions and optimize user experience across web sessions.
                 </li>
               </ul>
 
-              <h4 style={{ color: 'var(--text-main)', fontWeight: 700 }}>3. Opt-Out &amp; Privacy Controls</h4>
+              <h4 style={{ color: 'var(--text-main)', fontWeight: 700 }}>3. Cookie &amp; Privacy Controls</h4>
               <p>
-                Users have full control over advertising preferences and may opt out of personalized advertising:
+                Users have full control over cookie preferences and data settings:
               </p>
               <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <li>
-                  You can opt out of personalized Google advertising by visiting{' '}
-                  <a
-                    href="https://myadcenter.google.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: 'var(--accent-primary)', textDecoration: 'underline' }}
-                  >
-                    Google My Ad Center
-                  </a>.
+                  You can manage or delete cookies at any time through your web browser preferences (Chrome, Safari, Firefox, Edge).
                 </li>
                 <li>
-                  Alternatively, you can opt out of third-party vendor use of cookies for personalized advertising by visiting{' '}
-                  <a
-                    href="https://www.aboutads.info/choices/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: 'var(--accent-primary)', textDecoration: 'underline' }}
-                  >
-                    www.aboutads.info
-                  </a>.
+                  You can choose to disable third-party cookies or configure your browser to alert you when cookies are sent.
                 </li>
                 <li>
-                  To understand how Google uses information from sites or apps that use their services, please review{' '}
+                  For details on how technology partners manage information across services, please review the{' '}
                   <a
                     href="https://policies.google.com/technologies/partner-sites"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ color: 'var(--accent-primary)', textDecoration: 'underline' }}
                   >
-                    Google's Partner Technologies Policy
+                    Partner Technologies Policy
                   </a>.
                 </li>
               </ul>
@@ -140,9 +121,9 @@ export default function PrivacyModal({ type, onClose }) {
               <p>
                 InternGo provides gamified quantitative aptitude, logical reasoning, and problem-solving practice for candidates preparing for competitive exams and campus placements.
               </p>
-              <h4 style={{ color: 'var(--text-main)', fontWeight: 700 }}>2. Ad-Supported Access</h4>
+              <h4 style={{ color: 'var(--text-main)', fontWeight: 700 }}>2. Open Access</h4>
               <p>
-                Access to locked batch levels and answer reviews requires watching video advertisements. Bypassing or blocking ad checkpoints via automated tools is strictly prohibited.
+                Access to all curriculum levels, practice questions, and answer reviews is provided completely free of charge for all learners.
               </p>
               <h4 style={{ color: 'var(--text-main)', fontWeight: 700 }}>3. No Warranty</h4>
               <p>
@@ -161,7 +142,7 @@ export default function PrivacyModal({ type, onClose }) {
               </p>
               <h4 style={{ color: 'var(--text-main)', fontWeight: 700 }}>2. Free &amp; Accessible For Everyone</h4>
               <p>
-                We believe high-quality placement preparation should be accessible to all students regardless of financial background. InternGo requires no paid subscriptions, no mandatory sign-ups, and is fully ad-supported through Google AdSense.
+                We believe high-quality placement preparation should be accessible to all students regardless of financial background. InternGo requires no paid subscriptions, no mandatory sign-ups, and is completely free to use for all learners.
               </p>
               <h4 style={{ color: 'var(--text-main)', fontWeight: 700 }}>3. Local Progress Privacy</h4>
               <p>

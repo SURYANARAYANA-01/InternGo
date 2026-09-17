@@ -6,7 +6,7 @@ Find what percentage A is of B.
 Percentage increase from original to new value.
 Percentage decrease from original to new value.
 Net percentage change after successive changes.
-Income/expenditure/savings percentage changes.
+Percentage change in savings caused by income/expenditure changes.
 Exam marks and passing-percentage problems.
 Election percentage and winning-margin problems.
 Population growth/migration percentage problems.

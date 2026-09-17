@@ -7,7 +7,7 @@ export const CATEGORY_LEVELS = {
     'Percentage increase from original to new value.',
     'Percentage decrease from original to new value.',
     'Net percentage change after successive changes.',
-    'Income/expenditure/savings percentage changes.',
+    'Percentage change in savings caused by income/expenditure changes.',
     'Exam marks and passing-percentage problems.',
     'Election percentage and winning-margin problems.',
     'Population growth/migration percentage problems.',
@@ -32,7 +32,16 @@ export const CATEGORY_LEVELS = {
     'Fourth proportional.',
     'Ratio of areas from ratio of sides.',
     'Basic average.',
-  
+    'Average of first N natural numbers.',
+    'Average of even numbers.',
+    'Average of odd numbers.',
+    'New member joins.',
+    'Member leaves.',
+    'Replacement changes average.',
+    'Batting/bowling average.',
+    'Class average.',
+    'Missing temperature/value.',
+    'Weighted average.'
   ],
   reasoning: [
     'Constant difference.',

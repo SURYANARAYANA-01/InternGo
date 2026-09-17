@@ -98,9 +98,30 @@ export const updateLevelProgress = (levelId, score, questionsCount) => {
     }
   };
 
+  // Sequential unlock: earning >= 1 star unlocks the next level in that category
+  // levelId format: "level-<category>-<levelNum>"
+  let updatedUnlockedLevels = { ...current.unlockedLevels };
+  if (stars >= 1) {
+    const parts = levelId.split('-');
+    // Support categories like "problem_solving" (multi-segment): last part is number
+    const levelNum = parseInt(parts[parts.length - 1], 10);
+    const category = parts.slice(1, parts.length - 1).join('_');
+    if (!isNaN(levelNum) && category) {
+      const nextLevel = levelNum + 1;
+      const currentUnlocked = updatedUnlockedLevels[category] || [1];
+      if (nextLevel <= 30 && !currentUnlocked.includes(nextLevel)) {
+        updatedUnlockedLevels = {
+          ...updatedUnlockedLevels,
+          [category]: [...currentUnlocked, nextLevel]
+        };
+      }
+    }
+  }
+
   const updatedState = {
     ...current,
     userProgress: updatedProgress,
+    unlockedLevels: updatedUnlockedLevels,
     totalStars: current.totalStars + newStarsGain,
     stars: (current.stars || current.totalStars || 0) + newStarsGain,
     xp: current.xp + (score * 10) + (stars * 50),

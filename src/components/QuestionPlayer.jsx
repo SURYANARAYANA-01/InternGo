@@ -329,33 +329,10 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
             </button>
           </div>
 
-          {/* Explanation Button — Ad-gated */}
+          {/* Direct Explanation Access */}
           <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
             <button
-              onClick={() => {
-                if (explanationUnlocked) {
-                  // Already unlocked this session — toggle freely
-                  setShowExplanation(prev => !prev);
-                } else {
-                  // Need to watch Ad first
-                  setExplanationAdError(null);
-                  if (onWatchAdForExplanation) {
-                    onWatchAdForExplanation(
-                      () => {
-                        setExplanationUnlocked(true);
-                        setShowExplanation(true);
-                      },
-                      () => {
-                        setExplanationAdError('Ad not available. Please try again later.');
-                      }
-                    );
-                  } else {
-                    // Fallback: no Ad handler, open directly
-                    setExplanationUnlocked(true);
-                    setShowExplanation(true);
-                  }
-                }
-              }}
+              onClick={() => setShowExplanation(prev => !prev)}
               className="btn-secondary"
               style={{
                 padding: '11px 36px',
@@ -371,23 +348,8 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
               }}
             >
               <BookOpen size={16} color="var(--accent-primary)" />
-              <span>{explanationUnlocked ? 'Explanation' : '🎬 Watch Ad for Explanation'}</span>
+              <span>{showExplanation ? 'Hide Explanations' : 'View Explanations'}</span>
             </button>
-
-            {/* Ad error for explanation */}
-            {explanationAdError && (
-              <div style={{
-                padding: '8px 14px',
-                borderRadius: '10px',
-                background: 'rgba(239,68,68,0.12)',
-                border: '1px solid rgba(239,68,68,0.3)',
-                color: '#ef4444',
-                fontSize: '0.82rem',
-                fontWeight: 600
-              }}>
-                {explanationAdError}
-              </div>
-            )}
           </div>
 
           {/* Explanation Modal / Dropdown View */}
@@ -452,9 +414,6 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
             </div>
           )}
         </div>
-
-        {/* Policy-Compliant Display Ad on Results Screen */}
-        <AdBanner style={{ marginTop: '20px', maxWidth: '500px' }} />
       </div>
     );
   }
