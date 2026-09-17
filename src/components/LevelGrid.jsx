@@ -60,7 +60,7 @@ export default function LevelGrid({ onSelectCategory }) {
           color: 'var(--accent-primary)',
           marginBottom: '14px'
         }}>
-          <span>✦ 90 Skill Levels · 900 Curated Placement Questions</span>
+          <span>✦ 100 Skill Levels · 1000 Curated Placement Questions</span>
         </div>
 
         <h2 style={{
