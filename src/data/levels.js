@@ -104,7 +104,6 @@ export const CATEGORY_LEVELS = {
     'Identify kth alphanumeric element.',
     'Reverse-position extraction.',
     'Conditional character selection.',
-    'Mixed symbol-letter-number sequence.',
   ],
   problem_solving: [
     'Break a large problem into smaller tasks.',
