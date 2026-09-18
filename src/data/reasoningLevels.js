@@ -481,4 +481,324 @@ export const REASONING_LEVELS = [
     {"id": 10, "difficulty": "Hard", "question": "Find the missing term in the sequence: 6, 13, 28, 59, ___, 249.", "options": ["122", "120", "118", "124"], "correctIndex": 0, "explanation": "Differences are: 7, 15, 31 (each difference is 2\u00d7prev + 1). Next difference is 31 \u00d7 2 + 1 = 63. Missing term is 59 + 63 = 122 (and next diff is 63 \u00d7 2 + 1 = 127, giving 122 + 127 = 249)."},
   ]
  },
+ {
+  "levelNumber": 31,
+  "topic": "Find a wrong term in a sequence.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Find the wrong term in the sequence: 5, 10, 15, 21, 25, 30.", "options": ["10", "15", "21", "25"], "correctIndex": 2, "explanation": "The sequence should increase by 5: 5, 10, 15, 20, 25, 30. Therefore, 21 is the wrong term."},
+    {"id": 2, "difficulty": "Easy", "question": "Find the wrong term in the sequence: 8, 16, 24, 32, 41, 48.", "options": ["16", "24", "32", "41"], "correctIndex": 3, "explanation": "The sequence should increase by 8: 8, 16, 24, 32, 40, 48. Therefore, 41 is the wrong term."},
+    {"id": 3, "difficulty": "Easy", "question": "Find the wrong term in the sequence: 3, 6, 12, 24, 48, 95.", "options": ["6", "12", "24", "95"], "correctIndex": 3, "explanation": "Each term should be multiplied by 2: 3, 6, 12, 24, 48, 96. Therefore, 95 is the wrong term."},
+    {"id": 4, "difficulty": "Medium", "question": "Find the wrong term in the sequence: 4, 9, 16, 25, 35, 49, 64.", "options": ["16", "25", "35", "49"], "correctIndex": 2, "explanation": "The terms should be consecutive squares: 2² = 4, 3² = 9, 4² = 16, 5² = 25, 6² = 36, 7² = 49, 8² = 64. Therefore, 35 is the wrong term."},
+    {"id": 5, "difficulty": "Medium", "question": "Find the wrong term in the sequence: 2, 6, 12, 20, 30, 41, 56.", "options": ["20", "30", "41", "56"], "correctIndex": 2, "explanation": "The sequence follows n(n + 1): 1×2 = 2, 2×3 = 6, 3×4 = 12, 4×5 = 20, 5×6 = 30, 6×7 = 42, 7×8 = 56. Therefore, 41 is the wrong term."},
+    {"id": 6, "difficulty": "Medium", "question": "Find the wrong term in the sequence: 7, 14, 28, 56, 111, 224.", "options": ["28", "56", "111", "224"], "correctIndex": 2, "explanation": "Each term should be multiplied by 2: 7, 14, 28, 56, 112, 224. Therefore, 111 is the wrong term."},
+    {"id": 7, "difficulty": "Hard", "question": "Find the wrong term in the sequence: 3, 8, 15, 24, 35, 47, 63.", "options": ["24", "35", "47", "63"], "correctIndex": 2, "explanation": "The sequence follows n² − 1: 2²−1 = 3, 3²−1 = 8, 4²−1 = 15, 5²−1 = 24, 6²−1 = 35, 7²−1 = 48, 8²−1 = 63. Therefore, 47 is the wrong term."},
+    {"id": 8, "difficulty": "Hard", "question": "Find the wrong term in the sequence: 2, 5, 11, 23, 47, 96, 191.", "options": ["23", "47", "96", "191"], "correctIndex": 2, "explanation": "Each term should be obtained by multiplying the previous term by 2 and adding 1: 2×2+1=5, 5×2+1=11, 11×2+1=23, 23×2+1=47, 47×2+1=95, 95×2+1=191. Therefore, 96 is the wrong term."},
+    {"id": 9, "difficulty": "Hard", "question": "Find the wrong term in the sequence: 4, 9, 19, 39, 79, 158, 319.", "options": ["19", "79", "158", "319"], "correctIndex": 2, "explanation": "The sequence follows ×2 + 1: 4×2+1=9, 9×2+1=19, 19×2+1=39, 39×2+1=79, 79×2+1=159, 159×2+1=319. Therefore, 158 is the wrong term."},
+    {"id": 10, "difficulty": "Hard", "question": "Find the wrong term in the sequence: 6, 13, 28, 59, 122, 249, 502.", "options": ["28", "59", "122", "502"], "correctIndex": 3, "explanation": "The differences are 7, 15, 31, 63, 127, 255. Each difference doubles and increases by 1. Therefore, the final term should be 249 + 255 = 504, so 502 is the wrong term."}
+  ]
+ },
+ {
+  "levelNumber": 32,
+  "topic": "Find multiple missing terms in a sequence.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Find the two missing terms in the sequence: 4, 8, __, 16, 20, __.", "options": ["12, 24", "10, 22", "12, 20", "14, 24"], "correctIndex": 0, "explanation": "The sequence increases by 4 each time: 4, 8, 12, 16, 20, 24. Therefore, the missing terms are 12 and 24."},
+    {"id": 2, "difficulty": "Easy", "question": "Find the two missing terms in the sequence: 3, 6, __, 12, 15, __.", "options": ["8, 18", "9, 18", "9, 21", "10, 20"], "correctIndex": 1, "explanation": "The sequence increases by 3 each time: 3, 6, 9, 12, 15, 18. Therefore, the missing terms are 9 and 18."},
+    {"id": 3, "difficulty": "Easy", "question": "Find the two missing terms in the sequence: 5, 10, 15, __, 25, __.", "options": ["20, 30", "18, 30", "20, 35", "22, 32"], "correctIndex": 0, "explanation": "The sequence increases by 5 each time: 5, 10, 15, 20, 25, 30. Therefore, the missing terms are 20 and 30."},
+    {"id": 4, "difficulty": "Medium", "question": "Find the two missing terms in the sequence: 2, 6, 12, __, 30, __.", "options": ["18, 42", "20, 40", "20, 42", "22, 44"], "correctIndex": 2, "explanation": "The sequence follows n(n + 1): 1×2 = 2, 2×3 = 6, 3×4 = 12, 4×5 = 20, 5×6 = 30, 6×7 = 42. Therefore, the missing terms are 20 and 42."},
+    {"id": 5, "difficulty": "Medium", "question": "Find the two missing terms in the sequence: 3, 9, 27, __, 243, __.", "options": ["54, 486", "81, 729", "81, 486", "72, 729"], "correctIndex": 1, "explanation": "Each term is multiplied by 3: 3, 9, 27, 81, 243, 729. Therefore, the missing terms are 81 and 729."},
+    {"id": 6, "difficulty": "Medium", "question": "Find the two missing terms in the sequence: 7, 14, 28, __, 112, __.", "options": ["42, 224", "56, 224", "56, 336", "64, 224"], "correctIndex": 1, "explanation": "Each term is multiplied by 2: 7, 14, 28, 56, 112, 224. Therefore, the missing terms are 56 and 224."},
+    {"id": 7, "difficulty": "Hard", "question": "Find the two missing terms in the sequence: 2, 5, 10, 17, __, 37, __.", "options": ["24, 48", "26, 50", "25, 49", "27, 52"], "correctIndex": 1, "explanation": "The differences are +3, +5, +7, +9, +11, +13. Therefore, the missing terms are 17 + 9 = 26 and 37 + 13 = 50."},
+    {"id": 8, "difficulty": "Hard", "question": "Find the two missing terms in the sequence: 1, 4, 9, __, 25, __, 49.", "options": ["15, 35", "16, 36", "16, 35", "18, 36"], "correctIndex": 1, "explanation": "The sequence consists of consecutive squares: 1² = 1, 2² = 4, 3² = 9, 4² = 16, 5² = 25, 6² = 36, 7² = 49. Therefore, the missing terms are 16 and 36."},
+    {"id": 9, "difficulty": "Hard", "question": "Find the two missing terms in the sequence: 4, 7, 13, __, 49, __, 193.", "options": ["24, 96", "25, 97", "26, 98", "25, 96"], "correctIndex": 1, "explanation": "The differences double each time: +3, +6, +12, +24, +48, +96. Therefore, the missing terms are 13 + 12 = 25 and 49 + 48 = 97."},
+    {"id": 10, "difficulty": "Hard", "question": "Find the two missing terms in the sequence: 6, 13, 27, 55, __, 223, __.", "options": ["111, 447", "110, 446", "112, 448", "111, 449"], "correctIndex": 0, "explanation": "Each term is obtained by multiplying the previous term by 2 and adding 1: 6×2+1=13, 13×2+1=27, 27×2+1=55, 55×2+1=111, 111×2+1=223, 223×2+1=447. Therefore, the missing terms are 111 and 447."}
+  ]
+ },
+ {
+  "levelNumber": 33,
+  "topic": "Consecutive alphabet sequence.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Find the next letter in the sequence: A, B, C, D, __.", "options": ["E", "F", "G", "H"], "correctIndex": 0, "explanation": "The letters are in consecutive alphabetical order: A, B, C, D, E. Therefore, the next letter is E."},
+    {"id": 2, "difficulty": "Easy", "question": "Find the missing letter in the sequence: H, I, J, __, L.", "options": ["K", "M", "N", "O"], "correctIndex": 0, "explanation": "The letters are consecutive: H, I, J, K, L. Therefore, the missing letter is K."},
+    {"id": 3, "difficulty": "Easy", "question": "Find the next letter in the sequence: P, Q, R, S, __.", "options": ["T", "U", "V", "W"], "correctIndex": 0, "explanation": "The sequence follows consecutive alphabetical order. After S comes T."},
+    {"id": 4, "difficulty": "Medium", "question": "Find the missing letter in the sequence: C, D, E, __, G, H.", "options": ["F", "I", "J", "K"], "correctIndex": 0, "explanation": "The sequence contains consecutive letters from C through H. Therefore, F is the missing letter."},
+    {"id": 5, "difficulty": "Medium", "question": "Find the missing letter in the sequence: M, N, __, P, Q, R.", "options": ["O", "S", "T", "L"], "correctIndex": 0, "explanation": "The letters progress consecutively: M, N, O, P, Q, R. Therefore, O is missing."},
+    {"id": 6, "difficulty": "Medium", "question": "Find the missing letter in the sequence: W, X, __, Z.", "options": ["Y", "A", "B", "V"], "correctIndex": 0, "explanation": "The sequence follows consecutive letters W, X, Y, Z. Therefore, Y is missing."},
+    {"id": 7, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: A, B, __, D, E, __, G.", "options": ["C, F", "C, H", "D, F", "B, F"], "correctIndex": 0, "explanation": "The sequence contains consecutive letters A through G. Therefore, the missing letters are C and F."},
+    {"id": 8, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: J, K, __, M, N, __, P, Q.", "options": ["L, O", "L, P", "M, O", "I, O"], "correctIndex": 0, "explanation": "The sequence follows consecutive alphabetical order from J to Q. Therefore, the missing letters are L and O."},
+    {"id": 9, "difficulty": "Hard", "question": "Find the three missing letters in the sequence: R, __, T, __, V, W, __, Y.", "options": ["S, U, X", "S, V, X", "T, U, X", "S, U, Z"], "correctIndex": 0, "explanation": "The sequence consists of consecutive letters from R to Y: R, S, T, U, V, W, X, Y. Therefore, the missing letters are S, U, and X."},
+    {"id": 10, "difficulty": "Hard", "question": "Find the three missing letters in the sequence: D, E, __, G, __, I, J, __, L.", "options": ["F, H, K", "F, I, K", "E, H, K", "F, H, L"], "correctIndex": 0, "explanation": "The sequence contains consecutive letters from D through L: D, E, F, G, H, I, J, K, L. Therefore, the missing letters are F, H, and K."}
+  ]
+ },
+ {
+  "levelNumber": 34,
+  "topic": "Reverse alphabet sequence.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Find the next letter in the sequence: Z, Y, X, W, __.", "options": ["V", "U", "T", "S"], "correctIndex": 0, "explanation": "The letters are moving backward through the alphabet: Z, Y, X, W, V. Therefore, the next letter is V."},
+    {"id": 2, "difficulty": "Easy", "question": "Find the missing letter in the sequence: T, S, R, __, P.", "options": ["Q", "O", "N", "M"], "correctIndex": 0, "explanation": "The sequence moves backward one letter at a time: T, S, R, Q, P. Therefore, Q is missing."},
+    {"id": 3, "difficulty": "Easy", "question": "Find the next letter in the sequence: M, L, K, J, __.", "options": ["I", "H", "G", "F"], "correctIndex": 0, "explanation": "The letters decrease by one position each time. After J comes I in reverse alphabetical order."},
+    {"id": 4, "difficulty": "Medium", "question": "Find the missing letter in the sequence: H, G, F, __, D, C.", "options": ["E", "B", "A", "I"], "correctIndex": 0, "explanation": "The sequence moves backward consecutively: H, G, F, E, D, C. Therefore, E is missing."},
+    {"id": 5, "difficulty": "Medium", "question": "Find the missing letter in the sequence: R, Q, __, O, N, M.", "options": ["P", "L", "K", "S"], "correctIndex": 0, "explanation": "The letters move backward one position at a time: R, Q, P, O, N, M. Therefore, P is missing."},
+    {"id": 6, "difficulty": "Medium", "question": "Find the missing letter in the sequence: G, F, E, __, C, B.", "options": ["D", "A", "H", "I"], "correctIndex": 0, "explanation": "The sequence follows reverse alphabetical order: G, F, E, D, C, B. Therefore, D is missing."},
+    {"id": 7, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: Z, Y, __, W, __, U, T.", "options": ["X, V", "X, W", "Y, V", "V, S"], "correctIndex": 0, "explanation": "The sequence contains consecutive letters in reverse order: Z, Y, X, W, V, U, T. Therefore, the missing letters are X and V."},
+    {"id": 8, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: P, O, __, M, __, K, J.", "options": ["N, L", "N, K", "O, L", "L, I"], "correctIndex": 0, "explanation": "The sequence moves backward consecutively from P to J: P, O, N, M, L, K, J. Therefore, the missing letters are N and L."},
+    {"id": 9, "difficulty": "Hard", "question": "Find the three missing letters in the sequence: V, __, T, __, R, Q, __, O.", "options": ["U, S, P", "U, T, P", "T, S, P", "U, S, N"], "correctIndex": 0, "explanation": "The sequence follows reverse alphabetical order from V to O: V, U, T, S, R, Q, P, O. Therefore, the missing letters are U, S, and P."},
+    {"id": 10, "difficulty": "Hard", "question": "Find the three missing letters in the sequence: L, K, __, I, __, G, F, __, D.", "options": ["J, H, E", "J, I, E", "K, H, E", "J, H, D"], "correctIndex": 0, "explanation": "The sequence follows reverse alphabetical order from L to D: L, K, J, I, H, G, F, E, D. Therefore, the missing letters are J, H, and E."}
+  ]
+ },
+ {
+  "levelNumber": 35,
+  "topic": "Fixed alphabet skip.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Find the next letter in the sequence: A, C, E, G, __.", "options": ["H", "I", "J", "K"], "correctIndex": 1, "explanation": "The sequence skips one letter each time: A, C, E, G, I. Therefore, the next letter is I."},
+    {"id": 2, "difficulty": "Easy", "question": "Find the missing letter in the sequence: B, E, H, __, N.", "options": ["J", "K", "L", "M"], "correctIndex": 2, "explanation": "The letters increase by 3 positions: B, E, H, K, N. Therefore, K is missing."},
+    {"id": 3, "difficulty": "Easy", "question": "Find the next letter in the sequence: D, G, J, M, __.", "options": ["N", "O", "P", "Q"], "correctIndex": 2, "explanation": "Each letter advances by 3 positions: D, G, J, M, P. Therefore, the next letter is P."},
+    {"id": 4, "difficulty": "Medium", "question": "Find the missing letter in the sequence: C, F, I, __, O, R.", "options": ["J", "K", "L", "M"], "correctIndex": 2, "explanation": "The sequence advances by 3 alphabet positions: C, F, I, L, O, R. Therefore, L is missing."},
+    {"id": 5, "difficulty": "Medium", "question": "Find the missing letter in the sequence: A, E, I, __, Q.", "options": ["K", "L", "M", "N"], "correctIndex": 2, "explanation": "Each letter advances by 4 positions: A, E, I, M, Q. Therefore, M is missing."},
+    {"id": 6, "difficulty": "Medium", "question": "Find the missing letter in the sequence: F, J, N, __, V.", "options": ["P", "Q", "R", "S"], "correctIndex": 2, "explanation": "The letters advance by 4 positions: F, J, N, R, V. Therefore, R is missing."},
+    {"id": 7, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: B, E, __, K, N, __, T.", "options": ["H, Q", "I, Q", "H, R", "G, Q"], "correctIndex": 0, "explanation": "The sequence advances by 3 positions: B, E, H, K, N, Q, T. Therefore, the missing letters are H and Q."},
+    {"id": 8, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: C, G, __, O, __, W.", "options": ["K, S", "J, S", "K, T", "L, S"], "correctIndex": 0, "explanation": "The sequence advances by 4 positions: C, G, K, O, S, W. Therefore, the missing letters are K and S."},
+    {"id": 9, "difficulty": "Hard", "question": "Find the missing letters in the sequence: A, F, K, __, U, Z.", "options": ["O", "P", "Q", "R"], "correctIndex": 1, "explanation": "Each letter advances by 5 positions: A, F, K, P, U, Z. Therefore, P is missing."},
+    {"id": 10, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: D, I, __, S, X.", "options": ["M", "N", "O", "P"], "correctIndex": 1, "explanation": "The sequence advances by 5 positions: D, I, N, S, X. Therefore, N is missing."}
+  ]
+ },
+ {
+  "levelNumber": 36,
+  "topic": "Increasing alphabet skip.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Find the next letter in the sequence: A, B, D, G, __.", "options": ["J", "K", "L", "M"], "correctIndex": 1, "explanation": "The jumps increase by 1: +1, +2, +3. The next jump is +4, so G + 4 = K. Therefore, the next letter is K."},
+    {"id": 2, "difficulty": "Easy", "question": "Find the missing letter in the sequence: B, D, G, K, __.", "options": ["O", "P", "Q", "R"], "correctIndex": 1, "explanation": "The jumps are +2, +3, +4. The next jump is +5, so K + 5 = P. Therefore, P is missing."},
+    {"id": 3, "difficulty": "Easy", "question": "Find the next letter in the sequence: C, E, H, L, __.", "options": ["P", "Q", "R", "S"], "correctIndex": 1, "explanation": "The jumps are +2, +3, +4. The next jump is +5, so L + 5 = Q. Therefore, the next letter is Q."},
+    {"id": 4, "difficulty": "Medium", "question": "Find the missing letter in the sequence: A, C, F, J, O, __.", "options": ["T", "U", "V", "W"], "correctIndex": 1, "explanation": "The jumps increase by 1: +2, +3, +4, +5. The next jump is +6, so O + 6 = U. Therefore, U is missing."},
+    {"id": 5, "difficulty": "Medium", "question": "Find the missing letter in the sequence: D, F, I, M, R, __.", "options": ["V", "W", "X", "Y"], "correctIndex": 2, "explanation": "The jumps increase by 1: +2, +3, +4, +5. The next jump is +6, so R + 6 = X. Therefore, X is missing."},
+    {"id": 6, "difficulty": "Medium", "question": "Find the missing letter in the sequence: E, H, L, Q, __.", "options": ["V", "W", "X", "Y"], "correctIndex": 1, "explanation": "The jumps increase by 1: +3, +4, +5. The next jump is +6, so Q + 6 = W. Therefore, W is missing."},
+    {"id": 7, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: A, C, F, __, O, __.", "options": ["J, U", "J, T", "K, U", "I, T"], "correctIndex": 0, "explanation": "The jumps increase by 1: +2, +3, +4, +5, +6. Therefore, the sequence is A, C, F, J, O, U. The missing letters are J and U."},
+    {"id": 8, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: A, D, __, M, __, Z.", "options": ["H, S", "G, R", "H, T", "I, S"], "correctIndex": 0, "explanation": "The jumps increase by 1: +3, +4, +5, +6, +7. Therefore, the sequence is A, D, H, M, S, Z. The missing letters are H and S."},
+    {"id": 9, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: A, C, __, J, __, U.", "options": ["F, O", "E, O", "F, P", "G, O"], "correctIndex": 0, "explanation": "The jumps increase by 1: +2, +3, +4, +5, +6. Therefore, the sequence is A, C, F, J, O, U. The missing letters are F and O."},
+    {"id": 10, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: D, H, __, S, __.", "options": ["M, Z", "L, Z", "M, Y", "N, Z"], "correctIndex": 0, "explanation": "The jumps increase by 1: +4, +5, +6, +7. Therefore, the sequence is D, H, M, S, Z. The missing letters are M and Z."}
+  ]
+ },
+ {
+  "levelNumber": 37,
+  "topic": "Decreasing alphabet skip.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Find the next letter in the sequence: Z, Y, W, T, __.", "options": ["P", "Q", "R", "S"], "correctIndex": 0, "explanation": "The backward skips increase in size by 1: -1, -2, -3. The next skip is -4, so T - 4 = P. Therefore, the next letter is P."},
+    {"id": 2, "difficulty": "Easy", "question": "Find the missing letter in the sequence: Y, W, T, P, __.", "options": ["K", "J", "L", "M"], "correctIndex": 0, "explanation": "The backward skips are -2, -3, -4. The next skip is -5, so P - 5 = K. Therefore, K is missing."},
+    {"id": 3, "difficulty": "Easy", "question": "Find the next letter in the sequence: X, U, Q, L, __.", "options": ["F", "E", "G", "H"], "correctIndex": 0, "explanation": "The backward skips are -3, -4, -5. The next skip is -6, so L - 6 = F. Therefore, the next letter is F."},
+    {"id": 4, "difficulty": "Medium", "question": "Find the missing letter in the sequence: Z, X, U, Q, L, __.", "options": ["F", "E", "G", "H"], "correctIndex": 0, "explanation": "The backward skips are -2, -3, -4, -5. The next skip is -6, so L - 6 = F. Therefore, F is missing."},
+    {"id": 5, "difficulty": "Medium", "question": "Find the missing letter in the sequence: V, R, M, G, __.", "options": ["Z", "Y", "X", "W"], "correctIndex": 0, "explanation": "The backward skips are -4, -5, -6. The next skip is -7. Moving backward 7 positions from G wraps around to Z. Therefore, Z is missing."},
+    {"id": 6, "difficulty": "Medium", "question": "Find the missing letter in the sequence: T, Q, M, H, __.", "options": ["B", "C", "D", "E"], "correctIndex": 0, "explanation": "The backward skips are -3, -4, -5. The next skip is -6, so H - 6 = B. Therefore, B is missing."},
+    {"id": 7, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: Z, W, S, __, I, __.", "options": ["N, A", "O, A", "N, B", "M, A"], "correctIndex": 0, "explanation": "The backward skips are -3, -4, -5, -6, -7. Therefore, Z, W, S, N, H, A. The missing letters are N and A."},
+    {"id": 8, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: Y, U, P, __, C, __.", "options": ["J, U", "K, U", "J, V", "I, U"], "correctIndex": 0, "explanation": "The backward skips are -4, -5, -6, -7, -8. Therefore, Y, U, P, J, C, U. The missing letters are J and U."},
+    {"id": 9, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: X, T, O, __, C, __.", "options": ["I, U", "J, U", "I, V", "H, U"], "correctIndex": 0, "explanation": "The backward skips are -4, -5, -6, -7, -8. Therefore, X, T, O, I, C, U. The missing letters are I and U."},
+    {"id": 10, "difficulty": "Hard", "question": "Find the missing letter in the sequence: V, Q, K, D, __.", "options": ["V", "W", "X", "Y"], "correctIndex": 0, "explanation": "The backward skips are -5, -6, -7. The next skip is -8, so D - 8 = V. Therefore, V is missing."}
+  ]
+ },
+ {
+  "levelNumber": 38,
+  "topic": "Alternating forward/reverse alphabet.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Find the next letter in the sequence: A, Z, B, Y, C, __.", "options": ["X", "W", "V", "U"], "correctIndex": 0, "explanation": "The sequence alternates between moving forward from the beginning and backward from the end: A, B, C and Z, Y, X. Therefore, the next letter is X."},
+    {"id": 2, "difficulty": "Easy", "question": "Find the missing letter in the sequence: D, W, E, V, F, __.", "options": ["U", "T", "S", "R"], "correctIndex": 0, "explanation": "The forward letters are D, E, F and the reverse letters are W, V, U. Therefore, U is missing."},
+    {"id": 3, "difficulty": "Easy", "question": "Find the next letter in the sequence: H, S, I, R, J, __.", "options": ["Q", "P", "O", "N"], "correctIndex": 0, "explanation": "The forward letters increase H, I, J while the reverse letters decrease S, R, Q. Therefore, the next letter is Q."},
+    {"id": 4, "difficulty": "Medium", "question": "Find the missing letter in the sequence: B, Y, D, W, F, __, H.", "options": ["U", "V", "T", "S"], "correctIndex": 0, "explanation": "The forward letters are B, D, F, H and the reverse letters are Y, W, U. Therefore, U is missing."},
+    {"id": 5, "difficulty": "Medium", "question": "Find the missing letter in the sequence: C, X, F, U, I, __, L.", "options": ["R", "S", "T", "Q"], "correctIndex": 1, "explanation": "The forward letters increase by 3: C, F, I, L. The reverse letters decrease by 3: X, U, R. Therefore, R is missing."},
+    {"id": 6, "difficulty": "Medium", "question": "Find the missing letter in the sequence: A, Z, D, W, G, __, J.", "options": ["T", "U", "V", "S"], "correctIndex": 0, "explanation": "The forward letters increase by 3: A, D, G, J. The reverse letters decrease by 3: Z, W, T. Therefore, T is missing."},
+    {"id": 7, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: A, Z, D, __, G, T, J, __.", "options": ["W, Q", "X, Q", "W, R", "V, Q"], "correctIndex": 0, "explanation": "The forward letters increase by 3: A, D, G, J. The reverse letters decrease by 3: Z, W, T, Q. Therefore, the missing letters are W and Q."},
+    {"id": 8, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: B, Y, F, __, J, U, __, Q.", "options": ["U, N", "V, N", "U, O", "T, N"], "correctIndex": 0, "explanation": "The forward letters increase by 4: B, F, J, N. The reverse letters decrease by 4: Y, U, Q. Therefore, the missing letters are U and N."},
+    {"id": 9, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: C, X, H, __, M, __, R.", "options": ["S, N", "T, N", "S, O", "R, N"], "correctIndex": 0, "explanation": "The forward letters increase by 5: C, H, M, R. The reverse letters decrease by 5: X, S, N. Therefore, the missing letters are S and N."},
+    {"id": 10, "difficulty": "Hard", "question": "Find the two missing letters in the sequence: D, W, J, __, P, __, V.", "options": ["Q, K", "R, K", "Q, L", "P, K"], "correctIndex": 0, "explanation": "The forward letters increase by 6: D, J, P, V. The reverse letters decrease by 6: W, Q, K. Therefore, the missing letters are Q and K."}
+  ]
+ },
+ {
+  "levelNumber": 39,
+  "topic": "Letter-position arithmetic.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "If A = 1, B = 2, ..., Z = 26, what is the value of the letter F?", "options": ["5", "6", "7", "8"], "correctIndex": 1, "explanation": "F is the 6th letter of the alphabet. Therefore, its value is 6."},
+    {"id": 2, "difficulty": "Easy", "question": "If A = 1, B = 2, ..., Z = 26, what is the value of the letter M?", "options": ["11", "12", "13", "14"], "correctIndex": 2, "explanation": "M is the 13th letter of the alphabet. Therefore, its value is 13."},
+    {"id": 3, "difficulty": "Easy", "question": "If A = 1, B = 2, ..., Z = 26, what is the sum of the positions of C and H?", "options": ["10", "11", "12", "13"], "correctIndex": 1, "explanation": "C = 3 and H = 8. Their sum is 3 + 8 = 11."},
+    {"id": 4, "difficulty": "Medium", "question": "If A = 1, B = 2, ..., Z = 26, what is the difference between the positions of R and G?", "options": ["9", "10", "11", "12"], "correctIndex": 2, "explanation": "R = 18 and G = 7. The difference is 18 - 7 = 11."},
+    {"id": 5, "difficulty": "Medium", "question": "If A = 1, B = 2, ..., Z = 26, which letter has a position equal to the sum of the positions of D and J?", "options": ["M", "N", "O", "P"], "correctIndex": 1, "explanation": "D = 4 and J = 10. Their sum is 14, which corresponds to N."},
+    {"id": 6, "difficulty": "Medium", "question": "If A = 1, B = 2, ..., Z = 26, which letter has a position equal to twice the position of E plus 3?", "options": ["L", "M", "N", "O"], "correctIndex": 1, "explanation": "E = 5. Twice its position plus 3 is 2 × 5 + 3 = 13, which corresponds to M."},
+    {"id": 7, "difficulty": "Hard", "question": "If A = 1, B = 2, ..., Z = 26, which letter has a position equal to the product of the positions of B and F?", "options": ["J", "K", "L", "M"], "correctIndex": 2, "explanation": "B = 2 and F = 6. Their product is 2 × 6 = 12, which corresponds to L."},
+    {"id": 8, "difficulty": "Hard", "question": "If A = 1, B = 2, ..., Z = 26, which letter has a position equal to the difference between three times the position of H and the position of C?", "options": ["S", "T", "U", "V"], "correctIndex": 2, "explanation": "H = 8 and C = 3. Three times H minus C is 3 × 8 - 3 = 21, which corresponds to U."},
+    {"id": 9, "difficulty": "Hard", "question": "If A = 1, B = 2, ..., Z = 26, what is the letter corresponding to the value obtained by adding the positions of K and N and subtracting the position of D?", "options": ["T", "U", "V", "W"], "correctIndex": 1, "explanation": "K = 11, N = 14, and D = 4. Thus, 11 + 14 - 4 = 21, which corresponds to U."},
+    {"id": 10, "difficulty": "Hard", "question": "If A = 1, B = 2, ..., Z = 26, which letter has a position equal to twice the sum of the positions of C and F minus the position of B?", "options": ["P", "Q", "R", "S"], "correctIndex": 0, "explanation": "C = 3, F = 6, and B = 2. Twice the sum of C and F minus B is 2 × (3 + 6) - 2 = 16, which corresponds to P."}
+  ]
+ },
+ {
+  "levelNumber": 40,
+  "topic": "Alphabet midpoint.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Which letter is exactly midway between H and L in the alphabet?", "options": ["I", "J", "K", "M"], "correctIndex": 1, "explanation": "H is position 8 and L is position 12. The midpoint is (8 + 12) / 2 = 10, which corresponds to J."},
+    {"id": 2, "difficulty": "Easy", "question": "Which letter is exactly midway between B and F in the alphabet?", "options": ["C", "D", "E", "G"], "correctIndex": 1, "explanation": "B is position 2 and F is position 6. The midpoint is (2 + 6) / 2 = 4, which corresponds to D."},
+    {"id": 3, "difficulty": "Easy", "question": "Which letter is exactly midway between M and Q in the alphabet?", "options": ["N", "O", "P", "R"], "correctIndex": 1, "explanation": "M is position 13 and Q is position 17. The midpoint is (13 + 17) / 2 = 15, which corresponds to O."},
+    {"id": 4, "difficulty": "Medium", "question": "Which letter is exactly midway between C and K in the alphabet?", "options": ["F", "G", "H", "I"], "correctIndex": 1, "explanation": "C is position 3 and K is position 11. The midpoint is (3 + 11) / 2 = 7, which corresponds to G."},
+    {"id": 5, "difficulty": "Medium", "question": "Which letter is exactly midway between F and P in the alphabet?", "options": ["J", "K", "L", "M"], "correctIndex": 1, "explanation": "F is position 6 and P is position 16. The midpoint is (6 + 16) / 2 = 11, which corresponds to K."},
+    {"id": 6, "difficulty": "Medium", "question": "Which letter is exactly midway between J and T in the alphabet?", "options": ["N", "O", "P", "Q"], "correctIndex": 1, "explanation": "J is position 10 and T is position 20. The midpoint is (10 + 20) / 2 = 15, which corresponds to O."},
+    {"id": 7, "difficulty": "Hard", "question": "If a letter is exactly midway between D and X, which letter is it?", "options": ["M", "N", "O", "P"], "correctIndex": 1, "explanation": "D is position 4 and X is position 24. The midpoint is (4 + 24) / 2 = 14, which corresponds to N."},
+    {"id": 8, "difficulty": "Hard", "question": "Which letter is exactly midway between G and Y in the alphabet?", "options": ["O", "P", "Q", "R"], "correctIndex": 1, "explanation": "G is position 7 and Y is position 25. The midpoint is (7 + 25) / 2 = 16, which corresponds to P."},
+    {"id": 9, "difficulty": "Hard", "question": "If the midpoint of two letters is R and one of the letters is M, what is the other letter?", "options": ["V", "W", "X", "Y"], "correctIndex": 1, "explanation": "R is position 18 and M is position 13. If R is the midpoint, the other position is 2 × 18 - 13 = 23, which corresponds to W."},
+    {"id": 10, "difficulty": "Hard", "question": "If the midpoint of two letters is K and one of the letters is C, what is the other letter?", "options": ["R", "S", "T", "U"], "correctIndex": 1, "explanation": "K is position 11 and C is position 3. If K is the midpoint, the other position is 2 × 11 - 3 = 19, which corresponds to S."}
+  ]
+ },
+ {
+  "levelNumber": 41,
+  "topic": "Letters between two positions.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "How many letters are there between C and H in the alphabet?", "options": ["4", "5", "6", "7"], "correctIndex": 0, "explanation": "C is position 3 and H is position 8. The number of letters between them is 8 - 3 - 1 = 4."},
+    {"id": 2, "difficulty": "Easy", "question": "How many letters are there between F and K in the alphabet?", "options": ["3", "4", "5", "6"], "correctIndex": 1, "explanation": "F is position 6 and K is position 11. The number of letters between them is 11 - 6 - 1 = 4."},
+    {"id": 3, "difficulty": "Easy", "question": "How many letters are there between M and R in the alphabet?", "options": ["3", "4", "5", "6"], "correctIndex": 1, "explanation": "M is position 13 and R is position 18. The number of letters between them is 18 - 13 - 1 = 4."},
+    {"id": 4, "difficulty": "Medium", "question": "How many letters are there between D and N in the alphabet?", "options": ["8", "9", "10", "11"], "correctIndex": 1, "explanation": "D is position 4 and N is position 14. The number of letters between them is 14 - 4 - 1 = 9."},
+    {"id": 5, "difficulty": "Medium", "question": "How many letters are there between G and T in the alphabet?", "options": ["10", "11", "12", "13"], "correctIndex": 1, "explanation": "G is position 7 and T is position 20. The number of letters between them is 20 - 7 - 1 = 12."},
+    {"id": 6, "difficulty": "Medium", "question": "How many letters are there between J and W in the alphabet?", "options": ["11", "12", "13", "14"], "correctIndex": 1, "explanation": "J is position 10 and W is position 23. The number of letters between them is 23 - 10 - 1 = 12."},
+    {"id": 7, "difficulty": "Hard", "question": "If there are 7 letters between two letters in the alphabet and the first letter is E, what is the second letter?", "options": ["L", "M", "N", "O"], "correctIndex": 1, "explanation": "If there are 7 letters between the two letters, their positions differ by 8. E is position 5, so 5 + 8 = 13, which corresponds to M."},
+    {"id": 8, "difficulty": "Hard", "question": "If there are 11 letters between two letters in the alphabet and the first letter is H, what is the second letter?", "options": ["S", "T", "U", "V"], "correctIndex": 1, "explanation": "There must be 11 letters between the two letters, so their positions differ by 12. H is position 8, and 8 + 12 = 20, which corresponds to T."},
+    {"id": 9, "difficulty": "Hard", "question": "A letter has 9 letters between it and another letter, and the second letter is V. What is the first letter?", "options": ["K", "L", "M", "N"], "correctIndex": 1, "explanation": "If there are 9 letters between them, their positions differ by 10. V is position 22, so 22 - 10 = 12, which corresponds to L."},
+    {"id": 10, "difficulty": "Hard", "question": "A letter has 14 letters between it and another letter, and the second letter is Y. What is the first letter?", "options": ["I", "J", "K", "L"], "correctIndex": 1, "explanation": "If there are 14 letters between them, their positions differ by 15. Y is position 25, so 25 - 15 = 10, which corresponds to J."}
+  ]
+ },
+ {
+  "levelNumber": 42,
+  "topic": "Missing letter.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Find the missing letter: A, B, C, __, E.", "options": ["D", "F", "G", "H"], "correctIndex": 0, "explanation": "The letters are in consecutive alphabetical order: A, B, C, D, E. Therefore, D is missing."},
+    {"id": 2, "difficulty": "Easy", "question": "Find the missing letter: H, I, __, K, L.", "options": ["J", "M", "N", "O"], "correctIndex": 0, "explanation": "The letters are consecutive: H, I, J, K, L. Therefore, J is missing."},
+    {"id": 3, "difficulty": "Easy", "question": "Find the missing letter: P, Q, R, __, T.", "options": ["S", "U", "V", "W"], "correctIndex": 0, "explanation": "The sequence follows consecutive alphabetical order from P to T. Therefore, S is missing."},
+    {"id": 4, "difficulty": "Medium", "question": "Find the missing letter: B, D, F, __, J.", "options": ["G", "H", "I", "K"], "correctIndex": 1, "explanation": "The letters increase by 2 positions: B, D, F, H, J. Therefore, H is missing."},
+    {"id": 5, "difficulty": "Medium", "question": "Find the missing letter: C, F, I, __, O.", "options": ["J", "K", "L", "M"], "correctIndex": 2, "explanation": "The letters increase by 3 positions: C, F, I, L, O. Therefore, L is missing."},
+    {"id": 6, "difficulty": "Medium", "question": "Find the missing letter: Z, W, T, __, N.", "options": ["P", "Q", "R", "S"], "correctIndex": 1, "explanation": "The letters decrease by 3 positions: Z, W, T, Q, N. Therefore, Q is missing."},
+    {"id": 7, "difficulty": "Hard", "question": "Find the missing letter: A, D, H, M, __, Z.", "options": ["R", "S", "T", "U"], "correctIndex": 1, "explanation": "The jumps increase by 1: +3, +4, +5, +6, +7. Thus the sequence is A, D, H, M, S, Z. Therefore, S is missing."},
+    {"id": 8, "difficulty": "Hard", "question": "Find the missing letter: Z, V, Q, K, __.", "options": ["D", "E", "F", "G"], "correctIndex": 0, "explanation": "The backward jumps increase by 1: -4, -5, -6, -7. Therefore, K - 7 = D, so D is missing."},
+    {"id": 9, "difficulty": "Hard", "question": "Find the missing letter: B, E, J, Q, __.", "options": ["X", "Y", "Z", "W"], "correctIndex": 2, "explanation": "The letter positions are 2, 5, 10, 17, which follow n² + 1. The next position is 5² + 1 = 26, which corresponds to Z. Therefore, Z is missing."},
+    {"id": 10, "difficulty": "Hard", "question": "Find the missing letter: C, G, L, R, __.", "options": ["W", "X", "Y", "Z"], "correctIndex": 2, "explanation": "The jumps increase by 1: +4, +5, +6, +7. Therefore, R + 7 = Y, so Y is missing."}
+  ]
+ },
+ {
+  "levelNumber": 43,
+  "topic": "Wrong letter.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Find the wrong letter: A, B, C, E, F.", "options": ["A", "B", "C", "E"], "correctIndex": 3, "explanation": "The sequence should be A, B, C, D, E. Therefore, E is the wrong letter."},
+    {"id": 2, "difficulty": "Easy", "question": "Find the wrong letter: H, I, J, L, M.", "options": ["H", "I", "J", "L"], "correctIndex": 3, "explanation": "The sequence should be H, I, J, K, L. Therefore, L is the wrong letter."},
+    {"id": 3, "difficulty": "Easy", "question": "Find the wrong letter: P, Q, R, T, U.", "options": ["P", "Q", "R", "T"], "correctIndex": 3, "explanation": "The sequence should be P, Q, R, S, T. Therefore, T is the wrong letter."},
+    {"id": 4, "difficulty": "Medium", "question": "Find the wrong letter: B, D, F, I, J.", "options": ["D", "F", "I", "J"], "correctIndex": 2, "explanation": "The letters should increase by 2 positions: B, D, F, H, J. Therefore, I is the wrong letter."},
+    {"id": 5, "difficulty": "Medium", "question": "Find the wrong letter: C, F, I, L, P.", "options": ["F", "I", "L", "P"], "correctIndex": 3, "explanation": "The letters should increase by 3 positions: C, F, I, L, O. Therefore, P is the wrong letter."},
+    {"id": 6, "difficulty": "Medium", "question": "Find the wrong letter: Z, W, T, Q, M.", "options": ["W", "T", "Q", "M"], "correctIndex": 3, "explanation": "The letters should decrease by 3 positions: Z, W, T, Q, N. Therefore, M is the wrong letter."},
+    {"id": 7, "difficulty": "Hard", "question": "Find the wrong letter: A, D, H, M, R, Z.", "options": ["D", "H", "R", "Z"], "correctIndex": 2, "explanation": "The jumps should increase by 1: +3, +4, +5, +6, +7. The correct sequence is A, D, H, M, S, Z. Therefore, R is the wrong letter."},
+    {"id": 8, "difficulty": "Hard", "question": "Find the wrong letter: Z, V, Q, K, E.", "options": ["V", "Q", "K", "E"], "correctIndex": 3, "explanation": "The backward jumps should increase by 1: -4, -5, -6, -7. The correct sequence is Z, V, Q, K, D. Therefore, E is the wrong letter."},
+    {"id": 9, "difficulty": "Hard", "question": "Find the wrong letter: B, E, J, Q, Y.", "options": ["E", "J", "Q", "Y"], "correctIndex": 3, "explanation": "The positions follow n² + 1: 2, 5, 10, 17, 26. The fifth letter should be Z, not Y. Therefore, Y is the wrong letter."},
+    {"id": 10, "difficulty": "Hard", "question": "Find the wrong letter: C, G, L, R, Y, Z.", "options": ["G", "L", "R", "Z"], "correctIndex": 3, "explanation": "The jumps increase by 1: +4, +5, +6, +7. The correct sequence is C, G, L, R, Y. Therefore, Z is the wrong letter."}
+  ]
+ },
+ {
+  "levelNumber": 44,
+  "topic": "Multiple missing letters.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Find the two missing letters: A, __, C, D, __, F.", "options": ["B, E", "B, G", "C, E", "B, D"], "correctIndex": 0, "explanation": "The sequence follows consecutive alphabetical order: A, B, C, D, E, F. Therefore, the missing letters are B and E."},
+    {"id": 2, "difficulty": "Easy", "question": "Find the two missing letters: H, I, __, K, __, M.", "options": ["J, L", "J, M", "K, L", "I, L"], "correctIndex": 0, "explanation": "The sequence follows consecutive alphabetical order: H, I, J, K, L, M. Therefore, the missing letters are J and L."},
+    {"id": 3, "difficulty": "Easy", "question": "Find the two missing letters: P, __, R, S, __, U.", "options": ["Q, T", "Q, U", "R, T", "Q, S"], "correctIndex": 0, "explanation": "The sequence follows consecutive alphabetical order: P, Q, R, S, T, U. Therefore, the missing letters are Q and T."},
+    {"id": 4, "difficulty": "Medium", "question": "Find the two missing letters: B, D, __, H, __, L.", "options": ["F, J", "E, J", "F, K", "G, J"], "correctIndex": 0, "explanation": "The letters increase by 2 positions: B, D, F, H, J, L. Therefore, the missing letters are F and J."},
+    {"id": 5, "difficulty": "Medium", "question": "Find the two missing letters: C, F, __, L, __, R.", "options": ["I, O", "J, O", "I, P", "H, O"], "correctIndex": 0, "explanation": "The letters increase by 3 positions: C, F, I, L, O, R. Therefore, the missing letters are I and O."},
+    {"id": 6, "difficulty": "Medium", "question": "Find the two missing letters: Z, W, __, Q, __, K.", "options": ["T, N", "U, N", "T, M", "S, N"], "correctIndex": 0, "explanation": "The letters decrease by 3 positions: Z, W, T, Q, N, K. Therefore, the missing letters are T and N."},
+    {"id": 7, "difficulty": "Hard", "question": "Find the three missing letters: A, __, F, __, O, __, Z.", "options": ["C, J, U", "D, J, U", "C, K, U", "C, J, V"], "correctIndex": 0, "explanation": "The jumps increase by 1: +2, +3, +4, +5, +6, +7. The complete sequence is A, C, F, J, O, U, Z. Therefore, the missing letters are C, J, and U."},
+    {"id": 8, "difficulty": "Hard", "question": "Find the three missing letters: Z, __, S, __, H, __, A.", "options": ["W, N, A", "X, N, A", "W, M, A", "W, N, B"], "correctIndex": 0, "explanation": "The backward jumps increase by 1: -3, -4, -5, -6, -7. The complete sequence is Z, W, S, N, H, A. Therefore, the missing letters are W, N, and A."},
+    {"id": 9, "difficulty": "Hard", "question": "Find the three missing letters: B, __, I, __, T, __, I.", "options": ["E, N, A", "F, N, A", "E, O, A", "E, N, B"], "correctIndex": 0, "explanation": "The jumps increase by 1: +3, +4, +5, +6, +7, +8, with alphabet positions wrapping after Z. The complete sequence is B, E, I, N, T, A, I. Therefore, the missing letters are E, N, and A."},
+    {"id": 10, "difficulty": "Hard", "question": "Find the three missing letters: D, __, M, __, Z, __, Q.", "options": ["H, S, H", "I, S, H", "H, T, H", "H, S, G"], "correctIndex": 0, "explanation": "The jumps increase by 1: +4, +5, +6, +7, +8, +9, with alphabet positions wrapping after Z. The complete sequence is D, H, M, S, Z, H, Q. Therefore, the missing letters are H, S, and H."}
+  ]
+ },
+ {
+  "levelNumber": 45,
+  "topic": "Next alphanumeric term.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Find the next term: A1, B2, C3, D4, __.", "options": ["E5", "E6", "F5", "F6"], "correctIndex": 0, "explanation": "The letters move forward one position and the numbers increase by 1: A1, B2, C3, D4, E5. Therefore, the next term is E5."},
+    {"id": 2, "difficulty": "Easy", "question": "Find the next term: A2, B3, C4, D5, __.", "options": ["E6", "E7", "F6", "F7"], "correctIndex": 0, "explanation": "The letters and numbers both increase by 1. Therefore, after D5 comes E6."},
+    {"id": 3, "difficulty": "Easy", "question": "Find the next term: X1, Y2, Z3, __.", "options": ["A4", "A3", "B4", "B3"], "correctIndex": 0, "explanation": "The letters move forward from X, Y, Z and wrap around to A, while the numbers increase by 1. Therefore, the next term is A4."},
+    {"id": 4, "difficulty": "Medium", "question": "Find the next term: B2, D4, F6, H8, __.", "options": ["I9", "J10", "K10", "J12"], "correctIndex": 1, "explanation": "The letters increase by 2 positions and the numbers increase by 2: B2, D4, F6, H8, J10. Therefore, the next term is J10."},
+    {"id": 5, "difficulty": "Medium", "question": "Find the next term: C1, F3, I5, L7, __.", "options": ["N8", "O9", "P9", "O10"], "correctIndex": 1, "explanation": "The letters increase by 3 positions and the numbers increase by 2: C1, F3, I5, L7, O9. Therefore, the next term is O9."},
+    {"id": 6, "difficulty": "Medium", "question": "Find the next term: Z2, W4, T6, Q8, __.", "options": ["N10", "O10", "N12", "M10"], "correctIndex": 0, "explanation": "The letters move backward by 3 positions while the numbers increase by 2: Z2, W4, T6, Q8, N10. Therefore, the next term is N10."},
+    {"id": 7, "difficulty": "Hard", "question": "Find the next term: A1, C3, F6, J10, O15, __.", "options": ["T20", "U21", "V21", "U20"], "correctIndex": 1, "explanation": "The letter positions and numbers follow increasing jumps of +2, +3, +4, +5, then +6. The next position is 21, U, and the next number is 21. Therefore, the next term is U21."},
+    {"id": 8, "difficulty": "Hard", "question": "Find the next term: Z1, W3, S6, N10, H15, __.", "options": ["A20", "B21", "A21", "Z20"], "correctIndex": 0, "explanation": "The letter positions decrease by 3, 4, 5, 6, then 7, with wrap-around. The numbers increase by 2, 3, 4, 5, then 6. Thus H15 followed by A21. Therefore, the next term is A21."},
+    {"id": 9, "difficulty": "Hard", "question": "Find the next term: B2, E5, J10, Q17, __.", "options": ["Y24", "Z26", "X25", "Y26"], "correctIndex": 1, "explanation": "The letter positions and numbers are 2, 5, 10, 17, which follow n² + 1. The next value is 5² + 1 = 26, corresponding to Z. Therefore, the next term is Z26."},
+    {"id": 10, "difficulty": "Hard", "question": "Find the next term: D4, H8, M13, S19, __.", "options": ["Y25", "Z26", "X24", "Z25"], "correctIndex": 1, "explanation": "The letter positions and numbers increase by +4, +5, +6, then +7. Starting from S19, adding 7 gives 26, which corresponds to Z. Therefore, the next term is Z26."}
+  ]
+ },
+ {
+  "levelNumber": 46,
+  "topic": "Missing alphanumeric term.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "Find the missing term: A1, B2, __, D4, E5.", "options": ["C3", "C4", "D3", "B3"], "correctIndex": 0, "explanation": "The letters and numbers both increase by 1: A1, B2, C3, D4, E5. Therefore, C3 is missing."},
+    {"id": 2, "difficulty": "Easy", "question": "Find the missing term: H8, I9, __, K11, L12.", "options": ["J10", "J11", "K10", "I10"], "correctIndex": 0, "explanation": "Both the letters and numbers increase by 1. Therefore, J10 is missing."},
+    {"id": 3, "difficulty": "Easy", "question": "Find the missing term: P16, __, R18, S19, T20.", "options": ["Q17", "Q18", "R17", "P17"], "correctIndex": 0, "explanation": "The letters and numbers increase consecutively: P16, Q17, R18, S19, T20. Therefore, Q17 is missing."},
+    {"id": 4, "difficulty": "Medium", "question": "Find the missing term: B2, D4, __, H8, J10.", "options": ["F6", "F7", "G6", "E6"], "correctIndex": 0, "explanation": "The letters and numbers increase by 2: B2, D4, F6, H8, J10. Therefore, F6 is missing."},
+    {"id": 5, "difficulty": "Medium", "question": "Find the missing term: C3, F6, __, L12, O15.", "options": ["I9", "I10", "J9", "H9"], "correctIndex": 0, "explanation": "The letters and numbers increase by 3: C3, F6, I9, L12, O15. Therefore, I9 is missing."},
+    {"id": 6, "difficulty": "Medium", "question": "Find the missing term: Z26, W23, __, Q17, N14.", "options": ["T20", "T21", "U20", "S20"], "correctIndex": 0, "explanation": "The letters and numbers decrease by 3: Z26, W23, T20, Q17, N14. Therefore, T20 is missing."},
+    {"id": 7, "difficulty": "Hard", "question": "Find the missing term: A1, C3, F6, __, O15, U21.", "options": ["J10", "J11", "K10", "I10"], "correctIndex": 0, "explanation": "The positions and numbers increase by +2, +3, +4, +5, +6. The complete sequence is A1, C3, F6, J10, O15, U21. Therefore, J10 is missing."},
+    {"id": 8, "difficulty": "Hard", "question": "Find the missing term: Z26, W23, S19, __, H8, A1.", "options": ["N14", "N13", "M14", "O14"], "correctIndex": 0, "explanation": "The positions and numbers decrease by 3, 4, 5, 6, and 7. The complete sequence is Z26, W23, S19, N14, H8, A1. Therefore, N14 is missing."},
+    {"id": 9, "difficulty": "Hard", "question": "Find the missing term: B2, E5, __, Q17, Z26.", "options": ["J10", "J11", "K10", "I10"], "correctIndex": 0, "explanation": "The letter positions and numbers follow the pattern n² + 1: 2, 5, 10, 17, 26. Therefore, the missing term is J10."},
+    {"id": 10, "difficulty": "Hard", "question": "Find the missing term: D4, H8, __, S19, Z26.", "options": ["M13", "M14", "N13", "L13"], "correctIndex": 0, "explanation": "The positions and numbers increase by +4, +5, +6, and +7. The complete sequence is D4, H8, M13, S19, Z26. Therefore, M13 is missing."}
+  ]
+ },
+ {
+  "levelNumber": 47,
+  "topic": "Count letters/numbers between positions.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "How many letters are between C and H, and how many numbers are between 2 and 7?", "options": ["4 letters, 4 numbers", "5 letters, 4 numbers", "4 letters, 5 numbers", "5 letters, 5 numbers"], "correctIndex": 0, "explanation": "Between C and H are D, E, F, G, giving 4 letters. Between 2 and 7 are 3, 4, 5, 6, giving 4 numbers."},
+    {"id": 2, "difficulty": "Easy", "question": "How many letters are between F and K, and how many numbers are between 4 and 9?", "options": ["4 letters, 4 numbers", "5 letters, 5 numbers", "4 letters, 5 numbers", "5 letters, 4 numbers"], "correctIndex": 0, "explanation": "Between F and K are G, H, I, J, giving 4 letters. Between 4 and 9 are 5, 6, 7, 8, giving 4 numbers."},
+    {"id": 3, "difficulty": "Easy", "question": "How many letters are between M and R, and how many numbers are between 6 and 12?", "options": ["4 letters, 5 numbers", "5 letters, 6 numbers", "4 letters, 6 numbers", "5 letters, 5 numbers"], "correctIndex": 0, "explanation": "Between M and R are N, O, P, Q, giving 4 letters. Between 6 and 12 are 7, 8, 9, 10, 11, giving 5 numbers."},
+    {"id": 4, "difficulty": "Medium", "question": "How many letters are between D and N, and how many numbers are between 8 and 17?", "options": ["9 letters, 8 numbers", "10 letters, 9 numbers", "9 letters, 9 numbers", "10 letters, 8 numbers"], "correctIndex": 0, "explanation": "D is position 4 and N is position 14, so 14 - 4 - 1 = 9 letters are between them. Between 8 and 17 are 9 through 16, giving 8 numbers."},
+    {"id": 5, "difficulty": "Medium", "question": "How many letters are between G and T, and how many numbers are between 11 and 20?", "options": ["12 letters, 8 numbers", "13 letters, 9 numbers", "12 letters, 9 numbers", "13 letters, 8 numbers"], "correctIndex": 0, "explanation": "G is position 7 and T is position 20, so 20 - 7 - 1 = 12 letters are between them. Between 11 and 20 are 12 through 19, giving 8 numbers."},
+    {"id": 6, "difficulty": "Medium", "question": "How many letters are between J and W, and how many numbers are between 15 and 25?", "options": ["12 letters, 9 numbers", "13 letters, 10 numbers", "12 letters, 10 numbers", "13 letters, 9 numbers"], "correctIndex": 0, "explanation": "J is position 10 and W is position 23, so 23 - 10 - 1 = 12 letters are between them. Between 15 and 25 are 16 through 24, giving 9 numbers."},
+    {"id": 7, "difficulty": "Hard", "question": "If there are 7 letters between two letters and 9 numbers between two numbers, and the first letter is E and the first number is 6, what are the second letter and second number?", "options": ["M and 16", "N and 16", "M and 15", "N and 15"], "correctIndex": 0, "explanation": "Seven letters between two letters means their positions differ by 8. E is position 5, so the second letter is position 13, M. Nine numbers between two numbers means their values differ by 10. Thus, 6 + 10 = 16."},
+    {"id": 8, "difficulty": "Hard", "question": "If there are 11 letters between two letters and 14 numbers between two numbers, and the second letter is V and the second number is 30, what are the first letter and first number?", "options": ["J and 15", "K and 15", "J and 16", "K and 16"], "correctIndex": 0, "explanation": "Eleven letters between the letters means their positions differ by 12. V is position 22, so 22 - 12 = 10, which is J. Fourteen numbers between the numbers means their values differ by 15. Therefore, 30 - 15 = 15."},
+    {"id": 9, "difficulty": "Hard", "question": "A letter is at position 4 and another letter is at position 21. A number is at position 7 and another number is at position 23. How many letters and numbers are between the respective positions?", "options": ["16 letters, 15 numbers", "17 letters, 16 numbers", "16 letters, 16 numbers", "17 letters, 15 numbers"], "correctIndex": 0, "explanation": "Between letter positions 4 and 21 there are 21 - 4 - 1 = 16 letters. Between numbers 7 and 23 there are 23 - 7 - 1 = 15 numbers."},
+    {"id": 10, "difficulty": "Hard", "question": "The number of letters between two letters is 14, and the number of numbers between two numbers is 17. If the first letter is J and the first number is 12, what are the second letter and second number?", "options": ["Y and 30", "X and 30", "Y and 29", "X and 29"], "correctIndex": 0, "explanation": "Fourteen letters between the letters means their positions differ by 15. J is position 10, so 10 + 15 = 25, which is Y. Seventeen numbers between the numbers means their values differ by 18, so 12 + 18 = 30."}
+  ]
+ },
+ {
+  "levelNumber": 48,
+  "topic": "Identify kth alphanumeric element.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "In the sequence A1, B2, C3, D4, E5, what is the 4th element?", "options": ["C3", "D4", "E5", "F6"], "correctIndex": 1, "explanation": "The elements are counted from the beginning: 1st A1, 2nd B2, 3rd C3, 4th D4. Therefore, the 4th element is D4."},
+    {"id": 2, "difficulty": "Easy", "question": "In the sequence P1, Q2, R3, S4, T5, what is the 3rd element?", "options": ["Q2", "R3", "S4", "T5"], "correctIndex": 1, "explanation": "The 3rd element is R3."},
+    {"id": 3, "difficulty": "Easy", "question": "In the sequence X5, Y6, Z7, A8, B9, what is the 5th element?", "options": ["Z7", "A8", "B9", "C10"], "correctIndex": 2, "explanation": "Counting the elements gives X5 as 1st, Y6 as 2nd, Z7 as 3rd, A8 as 4th, and B9 as 5th. Therefore, the 5th element is B9."},
+    {"id": 4, "difficulty": "Medium", "question": "In the sequence A2, C4, E6, G8, I10, what is the 4th element?", "options": ["E6", "F7", "G8", "H9"], "correctIndex": 2, "explanation": "The letters increase by 2 positions and the numbers increase by 2. The 4th element is G8."},
+    {"id": 5, "difficulty": "Medium", "question": "In the sequence B3, E6, H9, K12, N15, what is the 5th element?", "options": ["K12", "L13", "N15", "O16"], "correctIndex": 2, "explanation": "The letters and numbers increase by 3 each time. The 5th element is N15."},
+    {"id": 6, "difficulty": "Medium", "question": "In the sequence Z2, W5, T8, Q11, N14, what is the 4th element?", "options": ["T8", "Q11", "N14", "M15"], "correctIndex": 1, "explanation": "The letters decrease by 3 positions while the numbers increase by 3. The 4th element is Q11."},
+    {"id": 7, "difficulty": "Hard", "question": "In the sequence A1, C3, F6, J10, O15, U21, what is the 5th element?", "options": ["J10", "O15", "P16", "U21"], "correctIndex": 1, "explanation": "The sequence uses increasing jumps of +2, +3, +4, +5, and +6 for both the letter positions and numbers. The 5th element is O15."},
+    {"id": 8, "difficulty": "Hard", "question": "In the sequence Z1, W3, S6, N10, H15, A21, what is the 6th element?", "options": ["H15", "A21", "Z22", "B22"], "correctIndex": 1, "explanation": "The letters move backward by increasing jumps of 3, 4, 5, 6, and 7, while the numbers increase by 2, 3, 4, 5, and 6. The 6th element is A21."},
+    {"id": 9, "difficulty": "Hard", "question": "In the sequence B2, E5, J10, Q17, Z26, what is the 4th element?", "options": ["J10", "Q17", "Z26", "R18"], "correctIndex": 1, "explanation": "The letter positions and numbers follow 2, 5, 10, 17, 26. Therefore, the 4th element is Q17."},
+    {"id": 10, "difficulty": "Hard", "question": "In the sequence D4, H8, M13, S19, Z26, what is the 5th element?", "options": ["S19", "Y25", "Z26", "A27"], "correctIndex": 2, "explanation": "The letter positions and numbers increase by +4, +5, +6, and +7. Therefore, the 5th element is Z26."}
+  ]
+ },
+ {
+  "levelNumber": 49,
+  "topic": "Reverse-position extraction.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "In the sequence A, B, C, D, E, which letter is 1st from the right?", "options": ["A", "B", "C", "E"], "correctIndex": 3, "explanation": "Counting from the right, E is the 1st letter. Therefore, the answer is E."},
+    {"id": 2, "difficulty": "Easy", "question": "In the sequence P, Q, R, S, T, which letter is 2nd from the right?", "options": ["Q", "R", "S", "T"], "correctIndex": 2, "explanation": "Counting from the right gives T as 1st and S as 2nd. Therefore, the answer is S."},
+    {"id": 3, "difficulty": "Easy", "question": "In the sequence H, I, J, K, L, M, which letter is 3rd from the right?", "options": ["I", "J", "K", "L"], "correctIndex": 1, "explanation": "Counting from the right gives M as 1st, L as 2nd, and K as 3rd. Therefore, the answer is K."},
+    {"id": 4, "difficulty": "Medium", "question": "In the sequence A, C, E, G, I, K, which letter is 4th from the right?", "options": ["C", "E", "G", "I"], "correctIndex": 1, "explanation": "Counting from the right gives K as 1st, I as 2nd, G as 3rd, and E as 4th. Therefore, the answer is E."},
+    {"id": 5, "difficulty": "Medium", "question": "In the sequence B, E, H, K, N, Q, which letter is 5th from the right?", "options": ["B", "E", "H", "K"], "correctIndex": 1, "explanation": "Counting from the right gives Q as 1st, N as 2nd, K as 3rd, H as 4th, and E as 5th. Therefore, the answer is E."},
+    {"id": 6, "difficulty": "Medium", "question": "In the sequence Z, W, T, Q, N, K, which letter is 3rd from the right?", "options": ["Q", "N", "K", "T"], "correctIndex": 1, "explanation": "Counting from the right gives K as 1st, N as 2nd, and Q as 3rd. Therefore, the answer is Q."},
+    {"id": 7, "difficulty": "Hard", "question": "In the sequence A1, C3, F6, J10, O15, U21, which alphanumeric term is 4th from the right?", "options": ["F6", "J10", "O15", "U21"], "correctIndex": 1, "explanation": "Counting from the right gives U21 as 1st, O15 as 2nd, J10 as 3rd, and F6 as 4th. Therefore, the answer is F6."},
+    {"id": 8, "difficulty": "Hard", "question": "In the sequence Z26, W23, S19, N14, H8, A1, which alphanumeric term is 5th from the right?", "options": ["Z26", "W23", "S19", "H8"], "correctIndex": 1, "explanation": "Counting from the right gives A1 as 1st, H8 as 2nd, N14 as 3rd, S19 as 4th, and W23 as 5th. Therefore, the answer is W23."},
+    {"id": 9, "difficulty": "Hard", "question": "In the sequence B2, E5, J10, Q17, Z26, which alphanumeric term is 3rd from the right?", "options": ["E5", "J10", "Q17", "Z26"], "correctIndex": 2, "explanation": "Counting from the right gives Z26 as 1st, Q17 as 2nd, and J10 as 3rd. Therefore, the answer is J10."},
+    {"id": 10, "difficulty": "Hard", "question": "In the sequence D4, H8, M13, S19, Z26, which alphanumeric term is 4th from the right?", "options": ["D4", "H8", "M13", "S19"], "correctIndex": 1, "explanation": "Counting from the right gives Z26 as 1st, S19 as 2nd, M13 as 3rd, and H8 as 4th. Therefore, the answer is H8."}
+  ]
+ },
+ {
+  "levelNumber": 50,
+  "topic": "Conditional character selection.",
+  "questions": [
+    {"id": 1, "difficulty": "Easy", "question": "If the first letter is a vowel, select the first letter; otherwise, select the second letter. For A, B, which letter is selected?", "options": ["A", "B", "C", "D"], "correctIndex": 0, "explanation": "A is a vowel, so the first letter is selected. Therefore, the answer is A."},
+    {"id": 2, "difficulty": "Easy", "question": "If the first character is an even number, select the first character; otherwise, select the second character. For 8, K, which character is selected?", "options": ["8", "K", "A", "2"], "correctIndex": 0, "explanation": "8 is an even number, so the first character is selected. Therefore, the answer is 8."},
+    {"id": 3, "difficulty": "Easy", "question": "If the second letter is a vowel, select the second letter; otherwise, select the first letter. For M, E, which letter is selected?", "options": ["M", "E", "N", "F"], "correctIndex": 1, "explanation": "E is a vowel, so the second letter is selected. Therefore, the answer is E."},
+    {"id": 4, "difficulty": "Medium", "question": "If the letter is in the first half of the alphabet (A–M), select it; otherwise, select the number. For P7, which character is selected?", "options": ["P", "7", "M", "6"], "correctIndex": 1, "explanation": "P is in the second half of the alphabet, so the number is selected. Therefore, the answer is 7."},
+    {"id": 5, "difficulty": "Medium", "question": "If the number is greater than 10, select the number; otherwise, select the letter. For H14, which character is selected?", "options": ["H", "14", "10", "I"], "correctIndex": 1, "explanation": "14 is greater than 10, so the number is selected. Therefore, the answer is 14."},
+    {"id": 6, "difficulty": "Medium", "question": "If the letter position is a multiple of 3, select the letter; otherwise, select the number. For I5, which character is selected?", "options": ["I", "5", "3", "H"], "correctIndex": 0, "explanation": "I is the 9th letter, and 9 is a multiple of 3. Therefore, the letter I is selected."},
+    {"id": 7, "difficulty": "Hard", "question": "If the letter position is greater than the number, select the letter; otherwise, select the number. For R12, which character is selected?", "options": ["R", "12", "18", "Q"], "correctIndex": 0, "explanation": "R is the 18th letter. Since 18 is greater than 12, the letter is selected. Therefore, the answer is R."},
+    {"id": 8, "difficulty": "Hard", "question": "If the letter position is even and the number is odd, select the letter; otherwise, select the number. For L9, which character is selected?", "options": ["L", "9", "12", "K"], "correctIndex": 0, "explanation": "L is position 12, which is even, and 9 is odd. Both conditions are satisfied, so the letter L is selected."},
+    {"id": 9, "difficulty": "Hard", "question": "If the letter position is greater than 15 or the number is less than 5, select the letter; otherwise, select the number. For Q8, which character is selected?", "options": ["Q", "8", "17", "P"], "correctIndex": 0, "explanation": "Q is position 17, which is greater than 15. Therefore, the condition is satisfied and the letter Q is selected."},
+    {"id": 10, "difficulty": "Hard", "question": "If the letter position is a multiple of 4 and the number is even, select the letter; otherwise, select the number. For T14, which character is selected?", "options": ["T", "14", "20", "S"], "correctIndex": 0, "explanation": "T is position 20, which is a multiple of 4, and 14 is even. Both conditions are satisfied, so the letter T is selected."}
+  ]
+ },
 ];
