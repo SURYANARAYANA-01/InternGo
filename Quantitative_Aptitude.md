@@ -1,6 +1,3 @@
-Quantitative Aptitude Granular
-Only granular question types / solving patterns. Use each item as a preparation checklist.
-
 Find x% of a number.
 Find what percentage A is of B.
 Percentage increase from original to new value.
@@ -47,11 +44,11 @@ Moving average.
 Geometric mean.
 AM-GM-HM relationship.
 Variance and standard deviation.
-Profit/loss amount.
 Profit percentage.
 Loss percentage.
-Find SP from CP and profit%.
-Find CP from SP and profit/loss%.
+Profit/loss amount.
+Find SP from CP and profit percentage.
+Find CP from SP and profit/loss percentage.
 Marked price + discount.
 Successive discounts.
 Markup required to allow discount and target profit.

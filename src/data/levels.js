@@ -41,7 +41,17 @@ export const CATEGORY_LEVELS = {
     'Batting/bowling average.',
     'Class average.',
     'Missing temperature/value.',
-    'Weighted average.'
+    'Weighted average.',
+    'Corrected average after an erroneous value.',
+    'Pooled average.',
+    'Moving average.',
+    'Geometric mean.',
+    'AM-GM-HM relationship.',
+    'Variance and standard deviation.',
+    'Profit percentage.',
+    'Loss percentage.',
+    'Profit/loss amount.',
+    'Find SP from CP and profit percentage.'
   ],
   reasoning: [
     'Constant difference.',

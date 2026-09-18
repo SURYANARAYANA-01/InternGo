@@ -1,6 +1,3 @@
-Problem Solving Granular
-Only granular question types / solving patterns. Use each item as a preparation checklist.
-
 Break a large problem into smaller tasks.
 Identify required inputs.
 Identify expected output.

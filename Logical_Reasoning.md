@@ -1,6 +1,3 @@
-Logical Reasoning Granular
-Only granular question types / solving patterns. Use each item as a preparation checklist.
-
 Constant difference
 Increasing difference
 Decreasing difference
