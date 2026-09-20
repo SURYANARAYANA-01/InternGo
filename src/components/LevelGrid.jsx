@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calculator, Brain, Lightbulb } from 'lucide-react';
+import { Calculator, Brain, Lightbulb, MessageSquare } from 'lucide-react';
 
 export default function LevelGrid({ onSelectCategory }) {
   const categoryButtons = [
@@ -32,8 +32,19 @@ export default function LevelGrid({ onSelectCategory }) {
       border: '1px solid rgba(255, 255, 255, 0.25)',
       glow: '0 10px 32px rgba(8, 145, 178, 0.5)',
       iconBg: 'rgba(255, 255, 255, 0.2)'
+    },
+    {
+      id: 'comm_skills',
+      title: 'Communication Skills',
+      icon: MessageSquare,
+      color: '#059669',
+      bg: 'linear-gradient(135deg, #059669 0%, #065f46 100%)',
+      border: '1px solid rgba(255, 255, 255, 0.25)',
+      glow: '0 10px 32px rgba(5, 150, 105, 0.5)',
+      iconBg: 'rgba(255, 255, 255, 0.2)'
     }
   ];
+
 
   return (
     <div style={{
@@ -60,7 +71,7 @@ export default function LevelGrid({ onSelectCategory }) {
           color: 'var(--accent-primary)',
           marginBottom: '14px'
         }}>
-          <span>✦ 150 Skill Levels · 1500 Curated Placement Questions</span>
+          <span>✦ 160 Skill Levels · 1550 Curated Placement Questions</span>
         </div>
 
         <h2 style={{

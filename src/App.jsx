@@ -5,6 +5,11 @@ import QuestionPlayer from './components/QuestionPlayer';
 import BackupModal from './components/BackupModal';
 import Footer from './components/Footer';
 import PrivacyModal from './components/PrivacyModal';
+import CommSkillsPage from './components/CommSkillsPage';
+import ReadingPage from './components/ReadingPage';
+import CreationPage from './components/CreationPage';
+import ReadingPlayer from './components/ReadingPlayer';
+import CreationPlayer from './components/CreationPlayer';
 
 import { getGameState, updateLevelProgress, unlockNextTwoLevels } from './utils/storage';
 import { showRewardedAd } from './utils/adHelper';
@@ -19,9 +24,19 @@ export default function App() {
   const [policyModalType, setPolicyModalType] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [adError, setAdError] = useState(null);
+  // Communication Skills navigation: null = comm skills home, 'reading' | 'creation' = sub-page
+  const [commSkillsSection, setCommSkillsSection] = useState(null);
+  const [activeCommLevel, setActiveCommLevel] = useState(null);
 
   const handleSelectCategory = (cat) => {
+    if (cat === 'comm_skills') {
+      setActiveCategoryPage('comm_skills');
+      setCommSkillsSection(null);
+      setActiveCommLevel(null);
+      return;
+    }
     setActiveCategoryPage(cat);
+    setActiveCommLevel(null);
     setIsScrolled(false);
     setAdError(null);
   };
@@ -76,6 +91,70 @@ export default function App() {
               showRewardedAd(onSuccess, onFail)
             }
           />
+        ) : activeCategoryPage === 'comm_skills' ? (
+          /* ── COMMUNICATION SKILLS PAGES ── */
+          commSkillsSection === 'reading' ? (
+            activeCommLevel ? (
+              <ReadingPlayer
+                levelNumber={activeCommLevel}
+                onExit={() => setActiveCommLevel(null)}
+                onComplete={(score, questionsCount = 5) => {
+                  const levelId = `level-comm_reading-${activeCommLevel}`;
+                  const updated = updateLevelProgress(levelId, score, questionsCount || 5);
+                  setGameState(updated);
+                }}
+              />
+            ) : (
+              <ReadingPage
+                onBack={() => setCommSkillsSection(null)}
+                unlockedLevels={gameState?.unlockedLevels?.comm_reading || [1]}
+                userProgress={gameState?.userProgress || {}}
+                onSelectLevel={(lvl) => setActiveCommLevel(lvl)}
+                onOpenPrivacy={() => setPolicyModalType('privacy')}
+                onOpenTerms={() => setPolicyModalType('terms')}
+                onOpenAbout={() => setPolicyModalType('about')}
+                onOpenContact={() => setPolicyModalType('contact')}
+              />
+            )
+          ) : commSkillsSection === 'creation' ? (
+            activeCommLevel ? (
+              <CreationPlayer
+                levelNumber={activeCommLevel}
+                onExit={() => setActiveCommLevel(null)}
+                onComplete={(score, questionsCount = 5) => {
+                  const levelId = `level-comm_creation-${activeCommLevel}`;
+                  const updated = updateLevelProgress(levelId, score, questionsCount || 5);
+                  setGameState(updated);
+                }}
+              />
+            ) : (
+              <CreationPage
+                onBack={() => setCommSkillsSection(null)}
+                unlockedLevels={gameState?.unlockedLevels?.comm_creation || [1]}
+                userProgress={gameState?.userProgress || {}}
+                onSelectLevel={(lvl) => setActiveCommLevel(lvl)}
+                onOpenPrivacy={() => setPolicyModalType('privacy')}
+                onOpenTerms={() => setPolicyModalType('terms')}
+                onOpenAbout={() => setPolicyModalType('about')}
+                onOpenContact={() => setPolicyModalType('contact')}
+              />
+            )
+          ) : (
+            <CommSkillsPage
+              onBack={() => {
+                setActiveCategoryPage(null);
+                setActiveCommLevel(null);
+              }}
+              onSelectSection={(id) => {
+                setCommSkillsSection(id);
+                setActiveCommLevel(null);
+              }}
+              onOpenPrivacy={() => setPolicyModalType('privacy')}
+              onOpenTerms={() => setPolicyModalType('terms')}
+              onOpenAbout={() => setPolicyModalType('about')}
+              onOpenContact={() => setPolicyModalType('contact')}
+            />
+          )
         ) : activeCategoryPage ? (
           /* CATEGORY PAGE */
           <div

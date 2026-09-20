@@ -4,7 +4,7 @@ const STORAGE_KEY = 'interngo_game_state_v2';
 // Level 1 is always free. Watching an Ad unlocks the next 2 locked levels.
 const DEFAULT_STATE = {
   userProgress: {}, // { 'level-aptitude-1': { stars: 3, score: 10, completed: true } }
-  unlockedLevels: { aptitude: [1], reasoning: [1], problem_solving: [1] },
+  unlockedLevels: { aptitude: [1], reasoning: [1], problem_solving: [1], comm_reading: [1], comm_creation: [1] },
   streak: 1,
   lastPlayDate: new Date().toISOString().split('T')[0],
   totalStars: 0,
@@ -82,9 +82,9 @@ export const updateLevelProgress = (levelId, score, questionsCount) => {
   const current = getGameState();
   const percentage = (score / questionsCount) * 100;
   let stars = 0;
-  if (percentage >= 100) stars = 3;
-  else if (percentage >= 80) stars = 2;
-  else if (percentage >= 70) stars = 1;
+  if (percentage >= 85) stars = 3;
+  else if (percentage >= 70) stars = 2;
+  else if (percentage >= 50) stars = 1;
 
   const existingStars = current.userProgress[levelId]?.stars || 0;
   const newStarsGain = Math.max(0, stars - existingStars);
@@ -94,7 +94,7 @@ export const updateLevelProgress = (levelId, score, questionsCount) => {
     [levelId]: {
       score: Math.max(current.userProgress[levelId]?.score || 0, score),
       stars: Math.max(existingStars, stars),
-      completed: percentage >= 70
+      completed: percentage >= 50
     }
   };
 

@@ -1,126 +1,93 @@
 import React, { useState, useEffect } from 'react';
-import { APTITUDE_LEVELS } from '../data/aptitudeLevels';
-import { REASONING_LEVELS } from '../data/reasoningLevels';
-import { PROBLEM_SOLVING_LEVELS } from '../data/problemSolvingLevels';
-import { Star, CheckCircle, XCircle, RotateCcw, ArrowLeft, ArrowRight, Award, BookOpen, X } from 'lucide-react';
+import { COMM_CREATION_LEVELS } from '../data/commCreationData';
+import { startListening, stopListening } from '../utils/speechService';
+import { evaluateCreationLevel } from '../utils/creationEvaluator';
+import { calculateLevelResult, toStorageFormat } from '../utils/commScoring';
+import { Star, Mic, MicOff, RotateCcw, ArrowLeft, ArrowRight, CheckCircle2, BookOpen, X } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import AdBanner from './AdBanner';
 
-export default function QuestionPlayer({ category, levelNumber, onExit, onComplete, onWatchAdForExplanation }) {
-  const categoryMap = {
-    aptitude: APTITUDE_LEVELS,
-    reasoning: REASONING_LEVELS,
-    problem_solving: PROBLEM_SOLVING_LEVELS
-  };
-
-  const levelList = categoryMap[category] || APTITUDE_LEVELS;
-  const levelData = levelList.find(l => l.levelNumber === levelNumber) || levelList[0];
-  const questions = levelData.questions;
+export default function CreationPlayer({ levelNumber, onExit, onComplete }) {
+  const levelData = COMM_CREATION_LEVELS.find(l => l.levelNumber === levelNumber) || COMM_CREATION_LEVELS[0];
+  const questions = levelData.questions || [];
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState({}); // { [questionIndex]: optionIndex }
+  const [isRecording, setIsRecording] = useState(false);
+  const [answers, setAnswers] = useState({}); // { [index]: string }
+  const [hasSpokenMap, setHasSpokenMap] = useState({}); // { [index]: boolean }
+  const [micError, setMicError] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [finalResult, setFinalResult] = useState(null);
+  const [evaluationResults, setEvaluationResults] = useState(null);
   const [showExplanation, setShowExplanation] = useState(false);
-  const [explanationUnlocked, setExplanationUnlocked] = useState(false);
-  const [explanationAdError, setExplanationAdError] = useState(null);
 
-  // Trigger massive celebratory color paper (confetti) animation upon reaching result screen
+  const currentQ = questions[currentIndex];
+  const isLastQuestion = currentIndex === questions.length - 1;
+  const currentAnswer = answers[currentIndex] || '';
+  const hasSpoken = !!hasSpokenMap[currentIndex] || currentAnswer.trim().length > 0;
+
+  // Clean up recording on unmount or question change
+  useEffect(() => {
+    return () => {
+      stopListening();
+    };
+  }, []);
+
+  useEffect(() => {
+    stopListening();
+    setIsRecording(false);
+    setMicError(null);
+  }, [currentIndex]);
+
+  // Confetti on result
   useEffect(() => {
     if (isSubmitted && finalResult) {
       try {
-        const colors = ['#f59e0b', '#ec4899', '#6366f1', '#10b981', '#06b6d4', '#8b5cf6', '#f97316', '#eab308'];
-
-        // 1. Massive Center Explosion (Shooting high and wide across whole screen)
+        const colors = ['#f59e0b', '#10b981', '#6366f1', '#ec4899', '#06b6d4'];
         confetti({
-          particleCount: 160,
-          spread: 120,
-          startVelocity: 65,
-          ticks: 350,
-          origin: { x: 0.5, y: 0.5 },
-          colors: colors,
-          scalar: 1.15
+          particleCount: 150,
+          spread: 100,
+          origin: { y: 0.6 },
+          colors: colors
         });
-
-        // 2. High-power Left & Right Corner Cannons
-        confetti({
-          particleCount: 90,
-          angle: 55,
-          spread: 85,
-          startVelocity: 75,
-          ticks: 350,
-          origin: { x: -0.05, y: 0.75 },
-          colors: colors,
-          scalar: 1.1
-        });
-        confetti({
-          particleCount: 90,
-          angle: 125,
-          spread: 85,
-          startVelocity: 75,
-          ticks: 350,
-          origin: { x: 1.05, y: 0.75 },
-          colors: colors,
-          scalar: 1.1
-        });
-
-        // 3. Continuous Full-Screen Festive Shower for 3 seconds
-        const end = Date.now() + 3000;
-
-        const frame = () => {
-          // Left stream
-          confetti({
-            particleCount: 7,
-            angle: 60,
-            spread: 70,
-            startVelocity: 60,
-            origin: { x: 0, y: 0.7 },
-            colors: colors,
-            ticks: 300
-          });
-          // Right stream
-          confetti({
-            particleCount: 7,
-            angle: 120,
-            spread: 70,
-            startVelocity: 60,
-            origin: { x: 1, y: 0.7 },
-            colors: colors,
-            ticks: 300
-          });
-          // Center sky fall
-          if (Math.random() < 0.3) {
-            confetti({
-              particleCount: 6,
-              angle: 270,
-              spread: 120,
-              startVelocity: 25,
-              origin: { x: Math.random(), y: -0.05 },
-              colors: colors,
-              ticks: 320
-            });
-          }
-
-          if (Date.now() < end) {
-            requestAnimationFrame(frame);
-          }
-        };
-        requestAnimationFrame(frame);
       } catch (err) {
-        console.error('Confetti animation error:', err);
+        console.error('Confetti error:', err);
       }
     }
   }, [isSubmitted, finalResult]);
 
-  const currentQ = questions[currentIndex];
-  const selectedOption = selectedAnswers[currentIndex];
-  const isAnswerSelected = selectedOption !== undefined;
+  // STT dictate answer — replaces previous text instead of appending
+  const handleRecord = () => {
+    if (isRecording) {
+      stopListening();
+      setIsRecording(false);
+      return;
+    }
 
-  const handleSelectOption = (index) => {
-    setSelectedAnswers(prev => ({
-      ...prev,
-      [currentIndex]: index
-    }));
+    setMicError(null);
+    setIsRecording(true);
+
+    startListening({
+      onStart: () => setIsRecording(true),
+      onResult: (transcript) => {
+        setIsRecording(false);
+        // Replace previous answer with new spoken transcript
+        setAnswers(prev => ({ ...prev, [currentIndex]: transcript.trim() }));
+        setHasSpokenMap(prev => ({ ...prev, [currentIndex]: true }));
+      },
+      onError: (msg) => {
+        setIsRecording(false);
+        setMicError(msg);
+      },
+      onEnd: () => setIsRecording(false)
+    });
+  };
+
+  const handleTextChange = (e) => {
+    const val = e.target.value;
+    setAnswers(prev => ({ ...prev, [currentIndex]: val }));
+    if (val.trim().length > 0) {
+      setHasSpokenMap(prev => ({ ...prev, [currentIndex]: true }));
+    }
   };
 
   const handleNext = () => {
@@ -136,79 +103,79 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
   };
 
   const handleSubmit = () => {
-    let score = 0;
-    questions.forEach((q, i) => {
-      if (selectedAnswers[i] === q.correctIndex) {
-        score += 1;
-      }
+    stopListening();
+
+    // Evaluate all questions using the creation evaluator
+    const results = evaluateCreationLevel(questions, answers);
+    setEvaluationResults(results);
+
+    // Calculate level score using commScoring
+    const questionScores = results.map(r => r.score);
+    const levelResult = calculateLevelResult(questionScores);
+
+    setFinalResult({
+      totalScore: levelResult.totalScore,
+      maxScore: levelResult.maxScore,
+      percentage: levelResult.percentage,
+      stars: levelResult.stars,
+      total: questions.length
     });
-
-    let stars = 0;
-    if (score === 10) stars = 3;
-    else if (score >= 8) stars = 2;
-    else if (score >= 7) stars = 1;
-
-    const result = { score, total: questions.length, stars };
-    setFinalResult(result);
     setIsSubmitted(true);
 
+    // Pass score to App.jsx via onComplete
     if (onComplete) {
-      onComplete(score, stars);
+      const { score, questionsCount } = toStorageFormat(levelResult);
+      onComplete(score, questionsCount);
     }
   };
 
   const handleRestart = () => {
     setCurrentIndex(0);
-    setSelectedAnswers({});
+    setAnswers({});
+    setHasSpokenMap({});
     setIsSubmitted(false);
     setFinalResult(null);
+    setEvaluationResults(null);
+    setShowExplanation(false);
   };
 
-  // Difficulty badge styling
-  const getDifficultyColor = (diff) => {
-    switch (diff) {
-      case 'Easy':
-        return { bg: 'rgba(16, 185, 129, 0.14)', text: '#10b981', border: 'rgba(16, 185, 129, 0.3)' };
-      case 'Medium':
-        return { bg: 'rgba(245, 158, 11, 0.14)', text: '#f59e0b', border: 'rgba(245, 158, 11, 0.3)' };
-      case 'Hard':
-        return { bg: 'rgba(239, 68, 68, 0.14)', text: '#ef4444', border: 'rgba(239, 68, 68, 0.3)' };
-      default:
-        return { bg: 'rgba(99, 102, 241, 0.14)', text: '#6366f1', border: 'rgba(99, 102, 241, 0.3)' };
-    }
+
+
+  // Helper: get question score category label
+  const getScoreLabel = (score) => {
+    if (score >= 0.85) return { label: 'Excellent', color: '#10b981' };
+    if (score >= 0.70) return { label: 'Good', color: '#3b82f6' };
+    if (score >= 0.50) return { label: 'Fair', color: '#f59e0b' };
+    if (score >= 0.30) return { label: 'Needs Work', color: '#f97316' };
+    return { label: 'Poor', color: '#ef4444' };
   };
 
   // -------------------------------------------------------------
   // RESULT SCREEN
   // -------------------------------------------------------------
   if (isSubmitted && finalResult) {
-    const { score, total, stars } = finalResult;
-    const percentage = Math.round((score / total) * 100);
+    const { totalScore, maxScore, percentage, stars, total } = finalResult;
 
     return (
       <div style={{
         width: '100%',
         height: '100%',
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '24px 20px',
+        padding: '24px',
         overflowY: 'auto'
       }} className="animate-fade-in">
-        <div className="result-card-padding" style={{
+        <div className="glass-card" style={{
+          maxWidth: '540px',
           width: '100%',
-          maxWidth: '500px',
-          background: 'var(--bg-glass)',
-          border: '1px solid var(--border-glass)',
-          borderRadius: '28px',
-          padding: '38px 32px 32px 32px',
+          padding: '36px 28px',
+          borderRadius: '24px',
           textAlign: 'center',
-          boxShadow: '0 20px 50px rgba(0, 0, 0, 0.35)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '8px'
+          border: '1px solid var(--border-glass)'
         }}>
           {/* Curved 3 Stars Creating a Small Arch */}
           <div style={{
@@ -262,7 +229,6 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
             />
           </div>
 
-          {/* Under Arch: 10/10 */}
           <div style={{
             fontSize: '3rem',
             fontWeight: 900,
@@ -271,10 +237,13 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
             marginTop: '12px',
             lineHeight: 1
           }}>
-            {score}/{total}
+            {totalScore}/{maxScore}
           </div>
 
-          {/* Under 10/10: Congratulations!!! */}
+          <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+            {Math.round(percentage)}% overall score
+          </div>
+
           <div style={{
             fontSize: '1.45rem',
             fontWeight: 800,
@@ -282,22 +251,21 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
             letterSpacing: '0.01em',
             marginTop: '6px'
           }}>
-            Congratulations!!!
+            {percentage >= 85 ? 'Congratulations!!!' : percentage >= 70 ? 'Great Job!' : percentage >= 50 ? 'Good Effort!' : 'Keep Practicing!'}
           </div>
 
-          {/* Level Title subtitle */}
           <div style={{
             fontSize: '0.88rem',
             color: 'var(--text-muted)',
             fontWeight: 500,
             marginTop: '2px',
-            marginBottom: '10px'
+            marginBottom: '16px'
           }}>
             Level {levelNumber}: {levelData.topic}
           </div>
 
-          {/* Action Buttons Row: Retry Level & Back to Levels */}
-          <div className="result-actions-row" style={{ display: 'flex', gap: '14px', width: '100%', marginTop: '6px' }}>
+          {/* Action buttons */}
+          <div className="result-actions-row" style={{ display: 'flex', gap: '14px', width: '100%', marginBottom: '16px' }}>
             <button
               onClick={handleRestart}
               className="btn-secondary"
@@ -335,8 +303,8 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
             </button>
           </div>
 
-          {/* Direct Explanation Access */}
-          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
+          {/* View Explanations Toggle Button */}
+          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
             <button
               onClick={() => setShowExplanation(prev => !prev)}
               className="btn-secondary"
@@ -349,16 +317,16 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
                 justifyContent: 'center',
                 gap: '8px',
                 borderRadius: '16px',
-                background: showExplanation ? 'rgba(99, 102, 241, 0.18)' : 'var(--bg-card)',
-                borderColor: showExplanation ? 'var(--accent-primary)' : 'var(--border-glass)'
+                background: showExplanation ? 'rgba(217, 119, 6, 0.18)' : 'var(--bg-card)',
+                borderColor: showExplanation ? '#d97706' : 'var(--border-glass)'
               }}
             >
-              <BookOpen size={16} color="var(--accent-primary)" />
+              <BookOpen size={16} color="#d97706" />
               <span>{showExplanation ? 'Hide Explanations' : 'View Explanations'}</span>
             </button>
           </div>
 
-          {/* Explanation Modal / Dropdown View */}
+          {/* Explanation Accordion View with Factor Breakdown */}
           {showExplanation && (
             <div style={{
               width: '100%',
@@ -368,11 +336,11 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
               border: '1px solid var(--border-glass)',
               borderRadius: '20px',
               textAlign: 'left',
-              maxHeight: '280px',
+              maxHeight: '400px',
               overflowY: 'auto',
               display: 'flex',
               flexDirection: 'column',
-              gap: '14px'
+              gap: '12px'
             }} className="animate-fade-in">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border-glass)', paddingBottom: '8px' }}>
                 <span style={{ fontSize: '0.92rem', fontWeight: 800, color: 'var(--text-main)' }}>
@@ -387,9 +355,8 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
               </div>
 
               {questions.map((q, idx) => {
-                const userAns = selectedAnswers[idx];
-                const isCorrect = userAns === q.correctIndex;
-
+                const result = evaluationResults ? evaluationResults[idx] : null;
+                const label = result ? getScoreLabel(result.score) : null;
                 return (
                   <div key={idx} style={{
                     padding: '12px',
@@ -398,19 +365,43 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
                     border: '1px solid var(--border-glass)',
                     fontSize: '0.85rem'
                   }}>
-                    <div style={{ fontWeight: 700, color: 'var(--text-main)', marginBottom: '4px' }}>
-                      Q{idx + 1}. {q.question}
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-                      <span style={{ color: isCorrect ? '#10b981' : '#ef4444', fontWeight: 700 }}>
-                        {isCorrect ? '✓ Correct' : `✗ Your answer: ${userAns !== undefined ? q.options[userAns] : 'Not answered'}`}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
+                      <span style={{ fontWeight: 700, color: 'var(--text-main)' }}>
+                        Q{idx + 1}. {q.prompt}
                       </span>
-                      {!isCorrect && (
-                        <span style={{ color: '#10b981', fontWeight: 600 }}>
-                          (Correct: {q.options[q.correctIndex]})
+                      {label && (
+                        <span style={{
+                          padding: '2px 8px',
+                          borderRadius: '6px',
+                          background: `${label.color}18`,
+                          color: label.color,
+                          fontSize: '0.7rem',
+                          fontWeight: 700,
+                          flexShrink: 0
+                        }}>
+                          {label.label}
                         </span>
                       )}
                     </div>
+
+                    {/* User's answer */}
+                    {answers[idx] ? (
+                      <div style={{ color: '#d97706', fontSize: '0.82rem', marginBottom: '6px' }}>
+                        Your answer: "{answers[idx]}"
+                      </div>
+                    ) : (
+                      <div style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginBottom: '6px', fontStyle: 'italic' }}>
+                        (Not answered)
+                      </div>
+                    )}
+
+                    {/* Feedback */}
+                    {result && result.feedback && (
+                      <div style={{ color: 'var(--text-muted)', fontSize: '0.78rem', marginBottom: '4px', fontStyle: 'italic' }}>
+                        {result.feedback}
+                      </div>
+                    )}
+
                     <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem', lineHeight: 1.4 }}>
                       <strong style={{ color: 'var(--text-main)' }}>Explanation:</strong> {q.explanation}
                     </div>
@@ -419,17 +410,15 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
               })}
             </div>
           )}
+
         </div>
       </div>
     );
   }
 
   // -------------------------------------------------------------
-  // QUESTION PLAYER SCREEN
+  // QUESTION PLAYER SCREEN (Exact Aptitude Layout)
   // -------------------------------------------------------------
-  const diffStyle = getDifficultyColor(currentQ.difficulty);
-  const isLastQuestion = currentIndex === questions.length - 1;
-
   return (
     <div style={{
       width: '100%',
@@ -468,18 +457,18 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
           </div>
         </div>
 
-        {/* Difficulty Badge */}
+        {/* See & Answer Badge placed where Easy/Medium/Hard was in Aptitude */}
         <div className="question-diff-badge" style={{
           padding: '6px 14px',
           borderRadius: '16px',
-          background: diffStyle.bg,
-          color: diffStyle.text,
-          border: `1px solid ${diffStyle.border}`,
+          background: 'rgba(217, 119, 6, 0.12)',
+          color: '#d97706',
+          border: '1px solid rgba(217, 119, 6, 0.3)',
           fontSize: '0.82rem',
           fontWeight: 700,
           letterSpacing: '0.02em'
         }}>
-          {currentQ.difficulty}
+          See &amp; Answer
         </div>
       </div>
 
@@ -488,7 +477,7 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
         <div style={{
           width: `${((currentIndex + 1) / questions.length) * 100}%`,
           height: '100%',
-          background: 'linear-gradient(90deg, var(--accent-primary), var(--accent-secondary))',
+          background: 'linear-gradient(90deg, #d97706, #b45309)',
           transition: 'width 0.3s ease'
         }} />
       </div>
@@ -502,9 +491,9 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
         alignItems: 'center',
         padding: '32px 24px'
       }}>
-        <div style={{ width: '100%', maxWidth: '680px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ width: '100%', maxWidth: '680px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
-          {/* Question Text Box */}
+          {/* Question Text Box — Single block with "Question X" */}
           <div className="question-box-padding" style={{
             padding: '28px 32px',
             borderRadius: '20px',
@@ -512,7 +501,7 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
             border: '1px solid var(--border-glass)',
             boxShadow: 'var(--shadow-card)'
           }}>
-            <span style={{ fontSize: '0.82rem', color: 'var(--accent-primary)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <span style={{ fontSize: '0.82rem', color: '#d97706', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Question {currentIndex + 1}
             </span>
             <h3 className="question-title-text" style={{
@@ -522,72 +511,92 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
               lineHeight: 1.45,
               marginTop: '8px'
             }}>
-              {currentQ.question}
+              {currentQ.prompt}
             </h3>
           </div>
 
-          {/* 4 Options */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {currentQ.options.map((optionText, optIndex) => {
-              const isSelected = selectedOption === optIndex;
-              const optionLetters = ['A', 'B', 'C', 'D'];
-
-              return (
-                <button
-                  key={optIndex}
-                  onClick={() => handleSelectOption(optIndex)}
-                  className="option-btn"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '16px',
-                    padding: '16px 20px',
-                    borderRadius: '16px',
-                    background: isSelected ? 'rgba(99, 102, 241, 0.16)' : 'var(--bg-surface)',
-                    border: isSelected ? '2px solid var(--accent-primary)' : '1px solid var(--border-glass)',
-                    color: isSelected ? 'var(--text-main)' : 'var(--text-main)',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    transition: 'all 0.2s ease',
-                    boxShadow: isSelected ? '0 0 20px rgba(99, 102, 241, 0.3)' : 'none'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isSelected) {
-                      e.currentTarget.style.borderColor = 'var(--border-glow)';
-                      e.currentTarget.style.background = 'var(--bg-card-hover)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isSelected) {
-                      e.currentTarget.style.borderColor = 'var(--border-glass)';
-                      e.currentTarget.style.background = 'var(--bg-surface)';
-                    }
-                  }}
-                >
-                  {/* Option Letter Badge */}
-                  <div style={{
-                    width: '34px',
-                    height: '34px',
-                    borderRadius: '10px',
-                    background: isSelected ? 'var(--accent-primary)' : 'var(--bg-input)',
-                    color: isSelected ? '#ffffff' : 'var(--text-muted)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '0.92rem',
-                    fontWeight: 800,
-                    flexShrink: 0
-                  }}>
-                    {optionLetters[optIndex]}
-                  </div>
-
-                  <span style={{ fontSize: '1.02rem', fontWeight: 600, flex: 1 }}>
-                    {optionText}
-                  </span>
-                </button>
-              );
-            })}
+          {/* Speak Answer Mic Button — Reduced compact size */}
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <button
+              onClick={handleRecord}
+              className="option-btn"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                padding: '12px 28px',
+                borderRadius: '16px',
+                background: isRecording
+                  ? 'linear-gradient(135deg, #ef4444, #b91c1c)'
+                  : hasSpoken
+                    ? 'rgba(217, 119, 6, 0.16)'
+                    : 'var(--bg-surface)',
+                border: isRecording
+                  ? '2px solid #ef4444'
+                  : hasSpoken
+                    ? '2px solid #d97706'
+                    : '1px solid var(--border-glass)',
+                color: isRecording ? '#ffffff' : hasSpoken ? '#d97706' : 'var(--text-main)',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: isRecording ? '0 0 20px rgba(239, 68, 68, 0.35)' : hasSpoken ? '0 0 16px rgba(217, 119, 6, 0.25)' : 'none'
+              }}
+            >
+              {isRecording ? (
+                <MicOff size={18} color="#ffffff" />
+              ) : hasSpoken ? (
+                <CheckCircle2 size={18} color="#d97706" />
+              ) : (
+                <Mic size={18} color="#d97706" />
+              )}
+              <span style={{ fontSize: '0.94rem', fontWeight: 700 }}>
+                {isRecording
+                  ? 'Listening… Tap to Stop'
+                  : hasSpoken
+                    ? 'Answer Recorded (Done — Tap to Retry)'
+                    : 'Speak Answer'}
+              </span>
+            </button>
           </div>
+
+          {/* Answer text area (display transcribed answer or allow user typing) */}
+          <div style={{ width: '100%' }}>
+            <textarea
+              value={currentAnswer}
+              onChange={handleTextChange}
+              placeholder="Your answer will appear here when you speak, or you can type here..."
+              rows={3}
+              style={{
+                width: '100%',
+                padding: '14px 16px',
+                borderRadius: '14px',
+                background: 'var(--bg-glass)',
+                border: '1px solid var(--border-glass)',
+                color: 'var(--text-main)',
+                fontSize: '0.95rem',
+                lineHeight: 1.5,
+                resize: 'vertical',
+                fontFamily: 'inherit',
+                outline: 'none',
+                boxSizing: 'border-box'
+              }}
+            />
+          </div>
+
+          {/* Mic Error (if any) */}
+          {micError && (
+            <div style={{
+              padding: '10px 16px',
+              borderRadius: '12px',
+              background: 'rgba(239, 68, 68, 0.1)',
+              border: '1px solid rgba(239, 68, 68, 0.25)',
+              color: '#ef4444',
+              fontSize: '0.85rem'
+            }}>
+              {micError}
+            </div>
+          )}
 
           {/* Navigation Bar (Previous & Next / Submit button) */}
           <div className="question-nav-container" style={{
@@ -618,16 +627,16 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
             {isLastQuestion ? (
               <button
                 onClick={handleSubmit}
-                disabled={!isAnswerSelected}
+                disabled={!hasSpoken}
                 className="btn-primary"
                 style={{
                   padding: '12px 32px',
                   fontSize: '0.98rem',
                   fontWeight: 700,
-                  opacity: isAnswerSelected ? 1 : 0.5,
-                  cursor: isAnswerSelected ? 'pointer' : 'not-allowed',
+                  opacity: hasSpoken ? 1 : 0.5,
+                  cursor: hasSpoken ? 'pointer' : 'not-allowed',
                   background: 'linear-gradient(135deg, #10b981, #059669)',
-                  boxShadow: isAnswerSelected ? '0 6px 20px rgba(16, 185, 129, 0.45)' : 'none'
+                  boxShadow: hasSpoken ? '0 6px 20px rgba(16, 185, 129, 0.45)' : 'none'
                 }}
               >
                 Submit Test
@@ -635,14 +644,16 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
             ) : (
               <button
                 onClick={handleNext}
-                disabled={!isAnswerSelected}
+                disabled={!hasSpoken}
                 className="btn-primary"
                 style={{
                   padding: '12px 28px',
                   fontSize: '0.95rem',
                   fontWeight: 700,
-                  opacity: isAnswerSelected ? 1 : 0.5,
-                  cursor: isAnswerSelected ? 'pointer' : 'not-allowed',
+                  opacity: hasSpoken ? 1 : 0.5,
+                  cursor: hasSpoken ? 'pointer' : 'not-allowed',
+                  background: 'linear-gradient(135deg, #10b981, #059669)',
+                  boxShadow: hasSpoken ? '0 6px 20px rgba(16, 185, 129, 0.45)' : 'none',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px'

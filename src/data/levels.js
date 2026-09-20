@@ -157,4 +157,18 @@ export const CATEGORY_LEVELS = {
     'Approximate square root.',
     'Approximate large product/quotient.',
   ],
+  comm_reading: [
+    'Greetings & Introductions',
+    'Family',
+    'Daily Routine',
+    'Food & Meals',
+    'Shopping',
+  ],
+  comm_creation: [
+    'Daily Routine',
+    'Family',
+    'Favorite Food',
+    'Weather',
+    'Hobbies',
+  ],
 };
