@@ -5,6 +5,7 @@ import { PROBLEM_SOLVING_LEVELS } from '../data/problemSolvingLevels';
 import { Star, CheckCircle, XCircle, RotateCcw, ArrowLeft, ArrowRight, Award, BookOpen, X } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import AdBanner from './AdBanner';
+import { calculateStars } from '../utils/storage';
 
 export default function QuestionPlayer({ category, levelNumber, onExit, onComplete, onWatchAdForExplanation }) {
   const categoryMap = {
@@ -143,10 +144,8 @@ export default function QuestionPlayer({ category, levelNumber, onExit, onComple
       }
     });
 
-    let stars = 0;
-    if (score === 10) stars = 3;
-    else if (score >= 8) stars = 2;
-    else if (score >= 7) stars = 1;
+    const percentage = (score / questions.length) * 100;
+    const stars = calculateStars(percentage);
 
     const result = { score, total: questions.length, stars };
     setFinalResult(result);

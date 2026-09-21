@@ -32,6 +32,36 @@ export const getGameState = () => {
       ...DEFAULT_STATE.unlockedLevels,
       ...(parsed.unlockedLevels || {})
     };
+
+    // Reconcile stars in userProgress and totalStars to ensure consistency
+    if (parsed.userProgress) {
+      let totalRecalcStars = 0;
+      let progressChanged = false;
+
+      for (const [lvlId, prog] of Object.entries(parsed.userProgress)) {
+        if (prog && typeof prog.score === 'number') {
+          const isComm = lvlId.includes('comm_');
+          const totalQ = isComm ? 5 : 10;
+          const pct = isComm
+            ? (prog.score > 5 ? prog.score : (prog.score / totalQ) * 100)
+            : (prog.score / totalQ) * 100;
+          const correctStars = calculateStars(pct, isComm);
+          if (prog.stars !== correctStars) {
+            prog.stars = correctStars;
+            prog.completed = isComm ? pct >= 50 : pct >= 70;
+            progressChanged = true;
+          }
+        }
+        totalRecalcStars += (prog?.stars || 0);
+      }
+
+      if (progressChanged || parsed.totalStars !== totalRecalcStars || parsed.stars !== totalRecalcStars) {
+        parsed.totalStars = totalRecalcStars;
+        parsed.stars = totalRecalcStars;
+        saveGameState({ ...DEFAULT_STATE, ...parsed, unlockedLevels: mergedUnlockedLevels });
+      }
+    }
+
     return { ...DEFAULT_STATE, ...parsed, unlockedLevels: mergedUnlockedLevels };
   } catch (err) {
     console.error('Failed to read local storage:', err);
@@ -78,13 +108,29 @@ export const unlockNextTwoLevels = (category, totalLevels = 30) => {
   return updated;
 };
 
+export const calculateStars = (percentage, isCommSkill = false) => {
+  if (isCommSkill) {
+    if (percentage >= 85) return 3;
+    if (percentage >= 70) return 2;
+    if (percentage >= 50) return 1;
+    return 0;
+  }
+  // Aptitude, Reasoning, Problem Solving (10 questions):
+  // 10 correct (100%) -> 3 stars
+  // 8 or 9 correct (>= 80%) -> 2 stars
+  // 7 correct (>= 70%) -> 1 star
+  // < 7 correct (< 70%) -> 0 stars
+  if (percentage >= 100) return 3;
+  if (percentage >= 80) return 2;
+  if (percentage >= 70) return 1;
+  return 0;
+};
+
 export const updateLevelProgress = (levelId, score, questionsCount) => {
   const current = getGameState();
   const percentage = (score / questionsCount) * 100;
-  let stars = 0;
-  if (percentage >= 85) stars = 3;
-  else if (percentage >= 70) stars = 2;
-  else if (percentage >= 50) stars = 1;
+  const isCommSkill = levelId.includes('comm_');
+  const stars = calculateStars(percentage, isCommSkill);
 
   const existingStars = current.userProgress[levelId]?.stars || 0;
   const newStarsGain = Math.max(0, stars - existingStars);
@@ -94,7 +140,7 @@ export const updateLevelProgress = (levelId, score, questionsCount) => {
     [levelId]: {
       score: Math.max(current.userProgress[levelId]?.score || 0, score),
       stars: Math.max(existingStars, stars),
-      completed: percentage >= 50
+      completed: isCommSkill ? percentage >= 50 : percentage >= 70
     }
   };
 
